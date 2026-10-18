@@ -1,1 +1,84 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Calculadora de Tinta: quantos litros comprar? | Calculadoras Úteis</title><meta name="description" content="Calcule quantos litros de tinta você precisa para pintar paredes, descontando portas e janelas."><link rel="canonical" href="https://rwp379.github.io/calculadoras/calculadora-de-tinta.html"><style>body{font-family:system-ui,sans-serif;max-width:720px;margin:0 auto;padding:16px;line-height:1.5;color:#222}header a{font-weight:700;text-decoration:none;color:#0a58ca}label{display:block;margin:10px 0 2px}input{width:100%;padding:8px;font-size:16px;box-sizing:border-box}button{margin-top:14px;padding:10px 18px;font-size:16px;background:#0a58ca;color:#fff;border:0;border-radius:6px;cursor:pointer}#res{margin-top:16px;padding:14px;background:#eef4ff;border-radius:8px}footer{margin-top:40px;font-size:13px;color:#666}li{margin:6px 0}</style></head><body><header><a href="/calculadoras/">Calculadoras Úteis</a></header><h1>Calculadora de Tinta: quantos litros comprar?</h1><p>Calcule quantos litros de tinta você precisa para pintar paredes, descontando portas e janelas.</p><form onsubmit="return calc()"><label for="w">Largura da parede (m)</label><input id="w" type="number" step="any" value="4"><label for="h">Altura da parede (m)</label><input id="h" type="number" step="any" value="2.7"><label for="n">Número de paredes iguais</label><input id="n" type="number" step="any" value="4"><label for="o">Área de portas/janelas a descontar (m²)</label><input id="o" type="number" step="any" value="3"><label for="c">Demãos</label><input id="c" type="number" step="any" value="2"><label for="r">Rendimento da tinta (m²/L por demão)</label><input id="r" type="number" step="any" value="10"><button>Calcular</button></form><div id="res" aria-live="polite">Preencha os valores e clique em Calcular.</div><h2>Como funciona</h2><p>O rendimento varia por marca e superfície (em geral 8 a 12 m² por litro por demão; veja a embalagem). A calculadora multiplica a área líquida pelas demãos e divide pelo rendimento. A margem de 10% cobre perdas e retoques.</p><h2>Materiais úteis</h2><p><a rel="sponsored noopener" href="https://lista.mercadolivre.com.br/rolo-de-pintura">Rolos e pincéis para pintura no Mercado Livre</a></p><script>function f(x){return x.toLocaleString("pt-BR",{maximumFractionDigits:2})}function calc(){var w=parseFloat(document.getElementById("w").value)||0;var h=parseFloat(document.getElementById("h").value)||0;var n=parseFloat(document.getElementById("n").value)||0;var o=parseFloat(document.getElementById("o").value)||0;var c=parseFloat(document.getElementById("c").value)||0;var r=parseFloat(document.getElementById("r").value)||0;document.getElementById("res").innerHTML=(function(){var a=(w*h*n-o);if(a<0)a=0;var l=a*c/r;return 'Área a pintar: '+f(a)+' m²<br>Tinta necessária: <b>'+f(l)+' litros</b><br>Sugestão: '+Math.ceil(l*1.1/3.6)+' lata(s) de 3,6 L (com 10% de margem)';})();return false}</script><footer>Resultados são estimativas para fins informativos. <a href="/calculadoras/sobre.html">Sobre</a> · <a href="/calculadoras/privacidade.html">Privacidade</a></footer></body></html>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Calculadora de Tinta: quantos litros e latas comprar</title><meta name="description" content="Calcule a área a pintar descontando portas e janelas, os litros de tinta por demão e a combinação mais econômica de latas de 18 L, 3,6 L e 900 ml."><link rel="canonical" href="https://rwp379.github.io/calculadoras/calculadora-de-tinta.html"><meta property="og:title" content="Calculadora de Tinta: quantos litros e latas comprar"><meta property="og:description" content="Calcule a área a pintar descontando portas e janelas, os litros de tinta por demão e a combinação mais econômica de latas de 18 L, 3,6 L e 900 ml."><meta property="og:type" content="website"><style>
+:root{--bg:#f7f6f2;--card:#fff;--ink:#1d2321;--muted:#5b6461;--line:#e3e1da;--accent:#b4501a;--accent-ink:#fff;--soft:#fbeee5;--warn:#7a4f00;--warn-bg:#fff4d6}
+@media (prefers-color-scheme:dark){:root{--bg:#141716;--card:#1d2120;--ink:#e9ece9;--muted:#a3aba7;--line:#2e3432;--accent:#f08a4b;--accent-ink:#1b0f07;--soft:#2a211b;--warn:#f1c76b;--warn-bg:#2b2412}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line);background:var(--card)}
+header.top .wrap{display:flex;align-items:center;gap:8px 20px;min-height:56px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+.brand{font-weight:800;text-decoration:none;color:var(--ink);letter-spacing:-.01em}
+.brand span{color:var(--accent)}
+nav.tools{display:flex;gap:4px 14px;flex-wrap:wrap;font-size:14px}
+nav.tools a{color:var(--muted);text-decoration:none}nav.tools a:hover{color:var(--accent)}
+h1{font-size:clamp(26px,4.5vw,36px);line-height:1.15;margin:28px 0 8px;letter-spacing:-.02em}
+h2{font-size:21px;margin:36px 0 10px}
+.lead{color:var(--muted);margin:0 0 20px;max-width:65ch}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+@media (max-width:720px){.calc{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+label{display:block;font-size:14px;color:var(--muted);margin:12px 0 4px}
+form label:first-child{margin-top:0}
+.inp{display:flex;align-items:center;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.inp input,select{width:100%;border:0;background:transparent;color:var(--ink);font:inherit;padding:9px 10px;outline:none;min-width:0}
+select{border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.inp:focus-within,select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.inp em{font-style:normal;color:var(--muted);padding:0 10px;font-size:14px;white-space:nowrap}
+.res h3{margin:0 0 8px;font-size:13px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+table{width:100%;border-collapse:collapse;font-size:15px}
+td{padding:7px 0;border-bottom:1px solid var(--line);vertical-align:top}td:last-child{text-align:right;padding-left:12px}
+.buy{background:var(--soft);border-radius:10px;padding:12px 14px;margin-top:14px}
+.buy ul{margin:6px 0 0;padding-left:20px}
+.warn{background:var(--warn-bg);color:var(--warn);border-radius:8px;padding:10px 12px;margin-top:12px;font-size:14px}
+.warn:empty{display:none}
+button.copy{margin-top:10px;background:var(--accent);color:var(--accent-ink);border:0;border-radius:8px;padding:8px 14px;font:inherit;font-weight:600;cursor:pointer}
+ol.steps li{margin:6px 0}
+.formula{font-family:ui-monospace,Consolas,monospace;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:14px;overflow-x:auto}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:8px 0}
+summary{cursor:pointer;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:16px}
+a.card{display:block;text-decoration:none;color:var(--ink)}
+a.card:hover{border-color:var(--accent)}
+a.card b{display:block;margin-bottom:4px}a.card small{color:var(--muted)}
+.note{font-size:14px;color:var(--muted)}
+footer{margin-top:48px;padding-top:16px;padding-bottom:24px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+</style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Quantas demãos de tinta preciso?", "acceptedAnswer": {"@type": "Answer", "text": "Em geral duas. Uma terceira costuma ser necessária ao trocar de uma cor escura para uma clara ou com tintas econômicas de baixa cobertura."}}, {"@type": "Question", "name": "Qual o rendimento de uma lata de 18 litros?", "acceptedAnswer": {"@type": "Answer", "text": "Depende da linha. Tintas econômicas rendem perto de 8 m² por litro por demão, e linhas premium podem passar de 12. O número exato está na embalagem; escolha a opção mais próxima no campo de rendimento."}}, {"@type": "Question", "name": "Preciso de selador antes da tinta?", "acceptedAnswer": {"@type": "Answer", "text": "Em reboco novo ou massa corrida, sim: o selador uniformiza a absorção e evita gastar tinta à toa. Em parede já pintada e em bom estado, normalmente não."}}, {"@type": "Question", "name": "A calculadora considera a diluição?", "acceptedAnswer": {"@type": "Answer", "text": "Não. A diluição recomendada pelo fabricante já está embutida no rendimento informado na embalagem."}}]}</script></head><body><header class="top"><div class="wrap"><a class="brand" href="/calculadoras/">Calculadoras <span>de Obra</span></a><nav class="tools" aria-label="Calculadoras"><a href="/calculadoras/calculadora-de-tinta.html">Tinta</a><a href="/calculadoras/calculadora-de-piso.html">Piso e rejunte</a><a href="/calculadoras/calculadora-de-concreto.html">Concreto</a><a href="/calculadoras/calculadora-de-alvenaria.html">Tijolos e blocos</a><a href="/calculadoras/calculadora-de-contrapiso.html">Contrapiso</a></nav></div></header><main class="wrap"><h1>Calculadora de tinta para paredes e tetos</h1><p class="lead">Calcule a área a pintar descontando portas e janelas, os litros de tinta por demão e a combinação mais econômica de latas de 18 L, 3,6 L e 900 ml.</p><section class="calc"><form class="card" onsubmit="return false"><label for="perim">Perímetro do cômodo (soma das paredes)</label><div class="inp"><input id="perim" data-k="perim" type="number" inputmode="decimal" min="0" step="0.1" value="14"><em>m</em></div><label for="alt">Pé-direito</label><div class="inp"><input id="alt" data-k="alt" type="number" inputmode="decimal" min="0" step="0.05" value="2.7"><em>m</em></div><label for="teto">Pintar o teto também?</label><select id="teto" data-k="teto"><option value="0">Não</option><option value="1">Sim</option></select><label for="area_teto">Área do teto (se for pintar)</label><div class="inp"><input id="area_teto" data-k="area_teto" type="number" inputmode="decimal" min="0" step="0.1" value="12"><em>m²</em></div><label for="portas">Portas (0,80 × 2,10 m)</label><div class="inp"><input id="portas" data-k="portas" type="number" inputmode="decimal" min="0" step="1" value="1"><em>un</em></div><label for="janelas">Janelas (1,20 × 1,00 m)</label><div class="inp"><input id="janelas" data-k="janelas" type="number" inputmode="decimal" min="0" step="1" value="1"><em>un</em></div><label for="demaos">Demãos</label><div class="inp"><input id="demaos" data-k="demaos" type="number" inputmode="decimal" min="0" step="1" value="2"><em>un</em></div><label for="rend">Rendimento por demão (confira a embalagem)</label><select id="rend" data-k="rend"><option value="10">Standard (≈ 10 m²/L)</option><option value="8">Econômica (≈ 8 m²/L)</option><option value="13">Premium (≈ 13 m²/L)</option></select></form><div class="card res" aria-live="polite"><h3>Resultado</h3><table><tbody id="rows"></tbody></table><div class="buy"><b>Lista de compras</b><ul id="buy"></ul></div><button class="copy" id="cp" type="button" onclick="copyList()">Copiar lista de compras</button><div class="warn" id="warn"></div></div></section><h2>Como calcular, passo a passo</h2><ol class="steps"><li>Some o comprimento de todas as paredes do cômodo (perímetro) e multiplique pelo pé-direito.</li><li>Desconte os vãos: uma porta padrão tem cerca de 1,68 m² e uma janela de 1,20 × 1,00 m tem 1,2 m².</li><li>Multiplique a área líquida pelo número de demãos e divida pelo rendimento da tinta.</li><li>Acrescente 10% para perdas no rolo, na bandeja e em retoques.</li></ol><h2>Exemplo resolvido</h2><p>Quarto de 3 × 4 m com pé-direito de 2,70 m: perímetro de 14 m e 37,8 m² de parede. Descontando uma porta (1,68 m²) e uma janela (1,2 m²), sobram 34,9 m². Com 2 demãos de tinta standard (10 m²/L): 34,9 × 2 ÷ 10 = 7,0 L, ou 7,7 L com a perda. A compra mais econômica é 2 galões de 3,6 L + 1 quarto de 900 ml.</p><h2>Fórmula usada</h2><div class="formula">Litros = (perímetro × pé-direito − vãos + teto) × demãos ÷ rendimento × 1,10</div><h2>Perguntas frequentes</h2><details><summary>Quantas demãos de tinta preciso?</summary><p>Em geral duas. Uma terceira costuma ser necessária ao trocar de uma cor escura para uma clara ou com tintas econômicas de baixa cobertura.</p></details><details><summary>Qual o rendimento de uma lata de 18 litros?</summary><p>Depende da linha. Tintas econômicas rendem perto de 8 m² por litro por demão, e linhas premium podem passar de 12. O número exato está na embalagem; escolha a opção mais próxima no campo de rendimento.</p></details><details><summary>Preciso de selador antes da tinta?</summary><p>Em reboco novo ou massa corrida, sim: o selador uniformiza a absorção e evita gastar tinta à toa. Em parede já pintada e em bom estado, normalmente não.</p></details><details><summary>A calculadora considera a diluição?</summary><p>Não. A diluição recomendada pelo fabricante já está embutida no rendimento informado na embalagem.</p></details><p class="note">Ferramentas úteis: <a rel="sponsored nofollow noopener" target="_blank" href="https://lista.mercadolivre.com.br/rolo-de-pintura-kit">Rolos e pincéis para pintura no Mercado Livre</a>.</p><h2>Calculadoras relacionadas</h2><div class="grid"><a class="card" href="/calculadoras/calculadora-de-piso.html"><b>Piso e rejunte</b><small>Calcule quantas caixas de piso comprar com a perda certa para o tipo de assentamento, além dos sacos de argamassa colante e quilos de rejunte.</small></a><a class="card" href="/calculadoras/calculadora-de-alvenaria.html"><b>Tijolos e blocos</b><small>Calcule quantos blocos cerâmicos ou de concreto você precisa para levantar uma parede e o volume de argamassa de assentamento, descontando portas e janelas.</small></a></div><script>
+function f(x){return Number(x).toLocaleString('pt-BR',{maximumFractionDigits:2})}
+function run(){
+ var v={};document.querySelectorAll('[data-k]').forEach(function(el){v[el.dataset.k]=el.tagName==='SELECT'?el.value:(parseFloat(el.value)||0);});
+ var r=calc(v);
+ document.getElementById('rows').innerHTML=r.rows.map(function(x){return '<tr><td>'+x[0]+'</td><td>'+x[1]+'</td></tr>'}).join('');
+ document.getElementById('buy').innerHTML=r.buy.map(function(x){return '<li>'+x+'</li>'}).join('');
+ document.getElementById('warn').textContent=r.warn||'';
+}
+function copyList(){var t=Array.from(document.querySelectorAll('#buy li')).map(function(li){return '- '+li.textContent}).join('\n');
+ if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){var b=document.getElementById('cp');b.textContent='Copiado!';setTimeout(function(){b.textContent='Copiar lista de compras'},1500)})}}
+document.addEventListener('input',run);document.addEventListener('change',run);
+
+function latas(L){
+ if(L<=0) return 'Nenhuma lata necessária';
+ var best=null;
+ for(var a=0;a<=Math.ceil(L/18)+1;a++){for(var b=0;b<=5;b++){for(var c=0;c<=4;c++){
+  var v=a*18+b*3.6+c*0.9; if(v+1e-9<L) continue;
+  var s=v*100+(a+b+c); if(!best||s<best.s) best={s:s,a:a,b:b,c:c,v:v};}}}
+ var out=[];
+ if(best.a) out.push(best.a+' × lata de 18 L');
+ if(best.b) out.push(best.b+' × galão de 3,6 L');
+ if(best.c) out.push(best.c+' × quarto de 900 ml');
+ return out.join(' + ')+' (total de '+f(best.v)+' L)';
+}
+function calc(v){var perim=v.perim;var alt=v.alt;var teto=v.teto;var area_teto=v.area_teto;var portas=v.portas;var janelas=v.janelas;var demaos=v.demaos;var rend=v.rend;
+var paredes = perim*alt;
+var vaos = portas*0.8*2.1 + janelas*1.2*1.0;
+var liq = Math.max(paredes - vaos, 0) + (teto==1 ? area_teto : 0);
+var litros = liq*demaos/rend*1.10;
+var combo = latas(litros);
+return {rows:[
+ ['Área bruta das paredes', f(paredes)+' m²'],
+ ['Desconto de portas e janelas', '− '+f(vaos)+' m²'],
+ ['Teto', teto==1 ? '+ '+f(area_teto)+' m²' : 'não incluído'],
+ ['Área líquida a pintar', f(liq)+' m²'],
+ ['Tinta necessária (com 10% de perda)', '<b>'+f(litros)+' L</b>']],
+ buy:[combo, 'Selador ou fundo preparador se a parede for nova ou tiver reboco aparente', 'Rolo de lã, pincel, bandeja e fita crepe'],
+ warn: liq<=0 ? 'Confira as medidas: a área líquida ficou zerada.' : ''};
+}run();</script></main><footer class="wrap">Os resultados são estimativas para compra de material e não substituem projeto nem orientação de profissional habilitado. Atualizado em 18/10/2026. <a href="/calculadoras/sobre.html">Sobre</a> · <a href="/calculadoras/privacidade.html">Privacidade</a></footer></body></html>

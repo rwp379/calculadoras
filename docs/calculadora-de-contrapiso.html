@@ -1,1 +1,70 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Calculadora de Contrapiso | Calculadoras Úteis</title><meta name="description" content="Calcule o volume de argamassa de contrapiso e os sacos de cimento e areia necessários."><link rel="canonical" href="https://rwp379.github.io/calculadoras/calculadora-de-contrapiso.html"><style>body{font-family:system-ui,sans-serif;max-width:720px;margin:0 auto;padding:16px;line-height:1.5;color:#222}header a{font-weight:700;text-decoration:none;color:#0a58ca}label{display:block;margin:10px 0 2px}input{width:100%;padding:8px;font-size:16px;box-sizing:border-box}button{margin-top:14px;padding:10px 18px;font-size:16px;background:#0a58ca;color:#fff;border:0;border-radius:6px;cursor:pointer}#res{margin-top:16px;padding:14px;background:#eef4ff;border-radius:8px}footer{margin-top:40px;font-size:13px;color:#666}li{margin:6px 0}</style></head><body><header><a href="/calculadoras/">Calculadoras Úteis</a></header><h1>Calculadora de Contrapiso</h1><p>Calcule o volume de argamassa de contrapiso e os sacos de cimento e areia necessários.</p><form onsubmit="return calc()"><label for="c">Comprimento (m)</label><input id="c" type="number" step="any" value="5"><label for="l">Largura (m)</label><input id="l" type="number" step="any" value="4"><label for="e">Espessura (cm)</label><input id="e" type="number" step="any" value="4"><label for="p">Perda (%)</label><input id="p" type="number" step="any" value="5"><button>Calcular</button></form><div id="res" aria-live="polite">Preencha os valores e clique em Calcular.</div><h2>Como funciona</h2><p>O contrapiso costuma ter de 3 a 5 cm de espessura. Volume = área × espessura. Os consumos são estimativas usuais para traço 1:4 (cimento:areia) e variam conforme os materiais.</p><h2>Materiais úteis</h2><p><a rel="sponsored noopener" href="https://lista.mercadolivre.com.br/regua-de-aluminio-pedreiro">Réguas e níveis para contrapiso no Mercado Livre</a></p><script>function f(x){return x.toLocaleString("pt-BR",{maximumFractionDigits:2})}function calc(){var c=parseFloat(document.getElementById("c").value)||0;var l=parseFloat(document.getElementById("l").value)||0;var e=parseFloat(document.getElementById("e").value)||0;var p=parseFloat(document.getElementById("p").value)||0;document.getElementById("res").innerHTML=(function(){var v=c*l*e/100*(1+p/100);return 'Área: '+f(c*l)+' m²<br>Volume: <b>'+f(v)+' m³</b><br>Traço 1:4 aproximado por m³: ~6,5 sacos de cimento de 50 kg e ~1,1 m³ de areia.<br>Para seu volume: ~'+Math.ceil(v*6.5)+' sacos de cimento e '+f(v*1.1)+' m³ de areia';})();return false}</script><footer>Resultados são estimativas para fins informativos. <a href="/calculadoras/sobre.html">Sobre</a> · <a href="/calculadoras/privacidade.html">Privacidade</a></footer></body></html>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Calculadora de Contrapiso: cimento e areia por m²</title><meta name="description" content="Calcule o volume de argamassa de contrapiso e quantos sacos de cimento e metros cúbicos de areia comprar, conforme a espessura e o traço."><link rel="canonical" href="https://rwp379.github.io/calculadoras/calculadora-de-contrapiso.html"><meta property="og:title" content="Calculadora de Contrapiso: cimento e areia por m²"><meta property="og:description" content="Calcule o volume de argamassa de contrapiso e quantos sacos de cimento e metros cúbicos de areia comprar, conforme a espessura e o traço."><meta property="og:type" content="website"><style>
+:root{--bg:#f7f6f2;--card:#fff;--ink:#1d2321;--muted:#5b6461;--line:#e3e1da;--accent:#b4501a;--accent-ink:#fff;--soft:#fbeee5;--warn:#7a4f00;--warn-bg:#fff4d6}
+@media (prefers-color-scheme:dark){:root{--bg:#141716;--card:#1d2120;--ink:#e9ece9;--muted:#a3aba7;--line:#2e3432;--accent:#f08a4b;--accent-ink:#1b0f07;--soft:#2a211b;--warn:#f1c76b;--warn-bg:#2b2412}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line);background:var(--card)}
+header.top .wrap{display:flex;align-items:center;gap:8px 20px;min-height:56px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+.brand{font-weight:800;text-decoration:none;color:var(--ink);letter-spacing:-.01em}
+.brand span{color:var(--accent)}
+nav.tools{display:flex;gap:4px 14px;flex-wrap:wrap;font-size:14px}
+nav.tools a{color:var(--muted);text-decoration:none}nav.tools a:hover{color:var(--accent)}
+h1{font-size:clamp(26px,4.5vw,36px);line-height:1.15;margin:28px 0 8px;letter-spacing:-.02em}
+h2{font-size:21px;margin:36px 0 10px}
+.lead{color:var(--muted);margin:0 0 20px;max-width:65ch}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+@media (max-width:720px){.calc{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+label{display:block;font-size:14px;color:var(--muted);margin:12px 0 4px}
+form label:first-child{margin-top:0}
+.inp{display:flex;align-items:center;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.inp input,select{width:100%;border:0;background:transparent;color:var(--ink);font:inherit;padding:9px 10px;outline:none;min-width:0}
+select{border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.inp:focus-within,select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.inp em{font-style:normal;color:var(--muted);padding:0 10px;font-size:14px;white-space:nowrap}
+.res h3{margin:0 0 8px;font-size:13px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+table{width:100%;border-collapse:collapse;font-size:15px}
+td{padding:7px 0;border-bottom:1px solid var(--line);vertical-align:top}td:last-child{text-align:right;padding-left:12px}
+.buy{background:var(--soft);border-radius:10px;padding:12px 14px;margin-top:14px}
+.buy ul{margin:6px 0 0;padding-left:20px}
+.warn{background:var(--warn-bg);color:var(--warn);border-radius:8px;padding:10px 12px;margin-top:12px;font-size:14px}
+.warn:empty{display:none}
+button.copy{margin-top:10px;background:var(--accent);color:var(--accent-ink);border:0;border-radius:8px;padding:8px 14px;font:inherit;font-weight:600;cursor:pointer}
+ol.steps li{margin:6px 0}
+.formula{font-family:ui-monospace,Consolas,monospace;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:14px;overflow-x:auto}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:8px 0}
+summary{cursor:pointer;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:16px}
+a.card{display:block;text-decoration:none;color:var(--ink)}
+a.card:hover{border-color:var(--accent)}
+a.card b{display:block;margin-bottom:4px}a.card small{color:var(--muted)}
+.note{font-size:14px;color:var(--muted)}
+footer{margin-top:48px;padding-top:16px;padding-bottom:24px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+</style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Qual a espessura ideal de contrapiso?", "acceptedAnswer": {"@type": "Answer", "text": "Entre 3 e 5 cm é o mais comum em residências. Menos que isso trinca com facilidade; muito mais encarece e pesa sobre a laje."}}, {"@type": "Question", "name": "Quanto tempo esperar para assentar o piso?", "acceptedAnswer": {"@type": "Answer", "text": "Em geral de 7 a 14 dias de cura para argamassa convencional. Siga a orientação do fabricante da argamassa colante e do piso."}}, {"@type": "Question", "name": "Contrapiso precisa de cal?", "acceptedAnswer": {"@type": "Answer", "text": "Não é obrigatório. O contrapiso comum usa cimento e areia em consistência semisseca, conhecida como farofa."}}]}</script></head><body><header class="top"><div class="wrap"><a class="brand" href="/calculadoras/">Calculadoras <span>de Obra</span></a><nav class="tools" aria-label="Calculadoras"><a href="/calculadoras/calculadora-de-tinta.html">Tinta</a><a href="/calculadoras/calculadora-de-piso.html">Piso e rejunte</a><a href="/calculadoras/calculadora-de-concreto.html">Concreto</a><a href="/calculadoras/calculadora-de-alvenaria.html">Tijolos e blocos</a><a href="/calculadoras/calculadora-de-contrapiso.html">Contrapiso</a></nav></div></header><main class="wrap"><h1>Calculadora de contrapiso</h1><p class="lead">Calcule o volume de argamassa de contrapiso e quantos sacos de cimento e metros cúbicos de areia comprar, conforme a espessura e o traço.</p><section class="calc"><form class="card" onsubmit="return false"><label for="area">Área do piso</label><div class="inp"><input id="area" data-k="area" type="number" inputmode="decimal" min="0" step="0.1" value="20"><em>m²</em></div><label for="esp">Espessura média</label><div class="inp"><input id="esp" data-k="esp" type="number" inputmode="decimal" min="0" step="0.5" value="4"><em>cm</em></div><label for="traco">Traço em volume (cimento : areia)</label><select id="traco" data-k="traco"><option value="1,4">1 : 4 — uso residencial comum</option><option value="1,3">1 : 3 — mais resistente</option><option value="1,5">1 : 5 — áreas de pouco tráfego</option></select></form><div class="card res" aria-live="polite"><h3>Resultado</h3><table><tbody id="rows"></tbody></table><div class="buy"><b>Lista de compras</b><ul id="buy"></ul></div><button class="copy" id="cp" type="button" onclick="copyList()">Copiar lista de compras</button><div class="warn" id="warn"></div></div></section><h2>Como calcular, passo a passo</h2><ol class="steps"><li>Multiplique a área pela espessura média em metros e acrescente 5% de perda.</li><li>Multiplique por 1,30, fator usual para argamassa semisseca (o volume de materiais secos é maior que o volume final).</li><li>Divida na proporção do traço; o cimento vira quilos pela massa unitária de cerca de 1.400 kg/m³.</li></ol><h2>Exemplo resolvido</h2><p>Piso de 20 m² com 4 cm de contrapiso: 0,84 m³ com perda. Volume seco: 1,09 m³. No traço 1 : 4, cimento = 1,09 ÷ 5 = 0,22 m³ ≈ 306 kg, ou 7 sacos de 50 kg; areia 0,87 m³.</p><h2>Fórmula usada</h2><div class="formula">Material = área × espessura × 1,05 × 1,30 × (parte do material ÷ soma do traço)</div><h2>Perguntas frequentes</h2><details><summary>Qual a espessura ideal de contrapiso?</summary><p>Entre 3 e 5 cm é o mais comum em residências. Menos que isso trinca com facilidade; muito mais encarece e pesa sobre a laje.</p></details><details><summary>Quanto tempo esperar para assentar o piso?</summary><p>Em geral de 7 a 14 dias de cura para argamassa convencional. Siga a orientação do fabricante da argamassa colante e do piso.</p></details><details><summary>Contrapiso precisa de cal?</summary><p>Não é obrigatório. O contrapiso comum usa cimento e areia em consistência semisseca, conhecida como farofa.</p></details><p class="note">Ferramentas úteis: <a rel="sponsored nofollow noopener" target="_blank" href="https://lista.mercadolivre.com.br/regua-de-aluminio-pedreiro">Régua de alumínio e desempenadeira no Mercado Livre</a>.</p><h2>Calculadoras relacionadas</h2><div class="grid"><a class="card" href="/calculadoras/calculadora-de-piso.html"><b>Piso e rejunte</b><small>Calcule quantas caixas de piso comprar com a perda certa para o tipo de assentamento, além dos sacos de argamassa colante e quilos de rejunte.</small></a><a class="card" href="/calculadoras/calculadora-de-concreto.html"><b>Concreto</b><small>Calcule o volume de concreto de pisos, calçadas, lajes e sapatas e a quantidade de sacos de cimento, areia, brita e água para o traço escolhido.</small></a></div><script>
+function f(x){return Number(x).toLocaleString('pt-BR',{maximumFractionDigits:2})}
+function run(){
+ var v={};document.querySelectorAll('[data-k]').forEach(function(el){v[el.dataset.k]=el.tagName==='SELECT'?el.value:(parseFloat(el.value)||0);});
+ var r=calc(v);
+ document.getElementById('rows').innerHTML=r.rows.map(function(x){return '<tr><td>'+x[0]+'</td><td>'+x[1]+'</td></tr>'}).join('');
+ document.getElementById('buy').innerHTML=r.buy.map(function(x){return '<li>'+x+'</li>'}).join('');
+ document.getElementById('warn').textContent=r.warn||'';
+}
+function copyList(){var t=Array.from(document.querySelectorAll('#buy li')).map(function(li){return '- '+li.textContent}).join('\n');
+ if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){var b=document.getElementById('cp');b.textContent='Copiado!';setTimeout(function(){b.textContent='Copiar lista de compras'},1500)})}}
+document.addEventListener('input',run);document.addEventListener('change',run);
+function calc(v){var area=v.area;var esp=v.esp;var traco=v.traco;
+var t = String(traco).split(',').map(Number);
+var vol = area*esp/100*1.05;
+var seco = vol*1.30;
+var vc = seco*t[0]/(t[0]+t[1]), va = seco*t[1]/(t[0]+t[1]);
+var kg = vc*1400, sacos = Math.ceil(kg/50);
+return {rows:[
+ ['Volume de contrapiso (com 5% de perda)', '<b>'+f(vol)+' m³</b>'],
+ ['Cimento', '<b>'+sacos+' sacos de 50 kg</b> ('+f(kg)+' kg)'],
+ ['Areia média', f(va)+' m³'],
+ ['Consumo de cimento por m²', area>0 ? f(kg/area)+' kg' : '—']],
+ buy:[sacos+' sacos de cimento de 50 kg', f(va*1.1)+' m³ de areia média lavada (inclui inchamento)', 'Adesivo para chapisco ou ponte de aderência, se indicado pelo fabricante do piso'],
+ warn: esp<3 ? 'Contrapisos com menos de 3 cm tendem a trincar e descolar; para espessuras tão pequenas, avalie argamassa autonivelante.' : (esp>6 ? 'Acima de 6 cm, avalie preencher parte da altura com concreto magro para economizar cimento.' : '')};
+}run();</script></main><footer class="wrap">Os resultados são estimativas para compra de material e não substituem projeto nem orientação de profissional habilitado. Atualizado em 18/10/2026. <a href="/calculadoras/sobre.html">Sobre</a> · <a href="/calculadoras/privacidade.html">Privacidade</a></footer></body></html>
