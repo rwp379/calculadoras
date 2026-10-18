@@ -7,6 +7,7 @@ SITE = "Calculadoras de Obra"
 TAGLINE = "Calcule material de reforma e construção com memória de cálculo, lista de compras e fórmulas explicadas."
 UPDATED = datetime.date.today().strftime("%d/%m/%Y")
 OUT = "docs"
+GSC = "lVqNX4_clxrA_3hEmZyA5nvMgk2JrCB1xlJymBVtD5Y"  # Google Search Console
 
 # Cada ferramenta: campos (id, rotulo, padrao, passo, unidade) ou (id, rotulo, [opcoes], None, None);
 # js recebe as variaveis dos campos e devolve {rows:[[rotulo, valor]], buy:[texto], warn:texto}.
@@ -334,6 +335,7 @@ def page(title, desc, canon, body, jsonld=None):
     ld = f'<script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>' if jsonld else ""
     return (f'<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">'
             f'<meta name="viewport" content="width=device-width,initial-scale=1">'
+            f'<meta name="google-site-verification" content="{GSC}">'
             f'<title>{esc(title)}</title><meta name="description" content="{esc(desc)}">'
             f'<link rel="canonical" href="{canon}"><meta property="og:title" content="{esc(title)}">'
             f'<meta property="og:description" content="{esc(desc)}"><meta property="og:type" content="website">'
