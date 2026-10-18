@@ -39,6 +39,54 @@ tools = [
   js="if(!h)return 'Informe a altura.';var v=m/(h*h);var c=v<18.5?'abaixo do peso':v<25?'peso normal':v<30?'sobrepeso':v<35?'obesidade grau I':v<40?'obesidade grau II':'obesidade grau III';return 'IMC: <b>'+f(v)+'</b> — '+c+'<br><small>Indicador de triagem; não substitui avaliação de um profissional de saúde.</small>';",
   text="IMC = peso ÷ altura². Classificação da OMS para adultos: abaixo de 18,5; 18,5–24,9 normal; 25–29,9 sobrepeso; 30 ou mais obesidade. Não considera massa muscular, idade ou sexo.",
   aff=None),
+ dict(slug="calculadora-de-tijolos", title="Calculadora de Tijolos e Blocos por m²", short="Tijolos / blocos",
+  desc="Calcule quantos tijolos ou blocos comprar para uma parede, com junta de argamassa e perda.",
+  fields=[("c","Comprimento da parede (m)",5),("h","Altura da parede (m)",2.8),("o","Aberturas a descontar (m²)",2),("bl","Comprimento do bloco (cm)",19),("bh","Altura do bloco (cm)",19),("j","Espessura da junta (cm)",1),("p","Perda (%)",5)],
+  js="var a=c*h-o;if(a<0)a=0;var u=1/(((bl+j)/100)*((bh+j)/100));var t=a*u*(1+p/100);return 'Área da parede: '+f(a)+' m²<br>Blocos por m²: '+f(u)+'<br>Total com perda: <b>'+Math.ceil(t)+' unidades</b>';",
+  text="Blocos por m² = 1 ÷ [(comprimento + junta) × (altura + junta)], com medidas em metros. Para bloco cerâmico 9×19×19 cm com junta de 1 cm, são cerca de 25 por m². Use 5% a 10% de perda para quebras.",
+  aff=("Ferramentas de pedreiro","colher-de-pedreiro")),
+ dict(slug="calculadora-de-reboco", title="Calculadora de Argamassa de Reboco", short="Reboco / argamassa",
+  desc="Estime o volume de argamassa e a quantidade de cimento, cal e areia para rebocar paredes.",
+  fields=[("a","Área a rebocar (m²)",30),("e","Espessura média (cm)",2),("p","Perda (%)",10)],
+  js="var v=a*e/100*(1+p/100);return 'Volume de argamassa: <b>'+f(v)+' m³</b><br>Traço 1:2:8 (cimento:cal:areia) aproximado por m³: ~3,6 sacos de cimento de 50 kg, ~7 sacos de cal de 20 kg, ~1,2 m³ de areia.<br>Para seu volume: ~'+Math.ceil(v*3.6)+' sacos de cimento, ~'+Math.ceil(v*7)+' sacos de cal, '+f(v*1.2)+' m³ de areia';",
+  text="Volume = área × espessura. Reboco interno costuma ter 1,5 a 2 cm e externo 2 a 3 cm. Os consumos de traço são estimativas usuais e variam com a umidade da areia e o tipo de material; argamassa industrializada traz o rendimento na embalagem.",
+  aff=("Desempenadeiras e ferramentas de reboco","desempenadeira")),
+ dict(slug="calculadora-de-contrapiso", title="Calculadora de Contrapiso", short="Contrapiso",
+  desc="Calcule o volume de argamassa de contrapiso e os sacos de cimento e areia necessários.",
+  fields=[("c","Comprimento (m)",5),("l","Largura (m)",4),("e","Espessura (cm)",4),("p","Perda (%)",5)],
+  js="var v=c*l*e/100*(1+p/100);return 'Área: '+f(c*l)+' m²<br>Volume: <b>'+f(v)+' m³</b><br>Traço 1:4 aproximado por m³: ~6,5 sacos de cimento de 50 kg e ~1,1 m³ de areia.<br>Para seu volume: ~'+Math.ceil(v*6.5)+' sacos de cimento e '+f(v*1.1)+' m³ de areia';",
+  text="O contrapiso costuma ter de 3 a 5 cm de espessura. Volume = área × espessura. Os consumos são estimativas usuais para traço 1:4 (cimento:areia) e variam conforme os materiais.",
+  aff=("Réguas e níveis para contrapiso","regua-de-aluminio-pedreiro")),
+ dict(slug="calculadora-de-telhas", title="Calculadora de Telhas para Telhado", short="Telhas",
+  desc="Calcule a área do telhado considerando a inclinação e quantas telhas comprar.",
+  fields=[("c","Comprimento da projeção do telhado (m)",10),("l","Largura da projeção do telhado (m)",8),("i","Inclinação (%)",30),("t","Telhas por m² (veja o fabricante)",16),("p","Perda (%)",5)],
+  js="var fc=Math.sqrt(1+Math.pow(i/100,2));var a=c*l*fc;return 'Fator de inclinação: '+f(fc)+'<br>Área real do telhado: <b>'+f(a)+' m²</b><br>Telhas: <b>'+Math.ceil(a*t*(1+p/100))+' unidades</b>';",
+  text="A área real é a área em planta multiplicada pelo fator de inclinação √(1 + i²), com i em decimal. Telhas cerâmicas tipo romana ficam em torno de 16 por m² e as francesas em torno de 15; confirme no fabricante.",
+  aff=("Ferramentas para telhado","ferramentas-telhado")),
+ dict(slug="calculadora-de-juros-simples", title="Calculadora de Juros Simples", short="Juros simples",
+  desc="Calcule juros simples e o montante final a partir do capital, taxa e prazo.",
+  fields=[("p","Capital (R$)",1000),("i","Taxa de juros ao mês (%)",2),("n","Prazo (meses)",6)],
+  js="var j=p*i/100*n;return 'Juros: <b>R$ '+f(j)+'</b><br>Montante: <b>R$ '+f(p+j)+'</b>';",
+  text="Juros simples: J = C × i × t, e montante M = C + J. Diferente dos juros compostos, os juros não incidem sobre os juros já acumulados.",
+  aff=None),
+ dict(slug="calculadora-de-financiamento", title="Calculadora de Financiamento (Tabela Price)", short="Financiamento / parcelas",
+  desc="Simule o valor da parcela de um empréstimo ou financiamento pela Tabela Price.",
+  fields=[("v","Valor financiado (R$)",20000),("i","Taxa de juros ao mês (%)",1.5),("n","Número de parcelas",36)],
+  js="if(n<=0)return 'Informe as parcelas.';var t=i/100;var pm=t?v*t/(1-Math.pow(1+t,-n)):v/n;return 'Parcela: <b>R$ '+f(pm)+'</b><br>Total pago: R$ '+f(pm*n)+'<br>Juros totais: R$ '+f(pm*n-v);",
+  text="Na Tabela Price as parcelas são fixas: PMT = PV × i ÷ (1 − (1 + i)^−n). A simulação não inclui tarifas, seguros e IOF, que entram no Custo Efetivo Total (CET) informado pelo banco.",
+  aff=None),
+ dict(slug="calculadora-regra-de-tres", title="Calculadora de Regra de Três", short="Regra de três",
+  desc="Resolva regra de três simples direta ou inversa em segundos.",
+  fields=[("a","A",2),("b","B (corresponde a A)",10),("c","C",5)],
+  js="if(!a)return 'A não pode ser zero.';return 'Direta (A está para B assim como C está para X): X = <b>'+f(b*c/a)+'</b><br>Inversa: X = <b>'+(c?f(a*b/c):'—')+'</b>';",
+  text="Regra de três direta: X = B × C ÷ A (as grandezas crescem juntas). Inversa: X = A × B ÷ C (quando uma cresce, a outra diminui, como velocidade e tempo).",
+  aff=None),
+ dict(slug="calculadora-de-consumo-de-energia", title="Calculadora de Consumo de Energia", short="Consumo de energia",
+  desc="Calcule quantos kWh um aparelho consome por mês e quanto ele custa na conta de luz.",
+  fields=[("pw","Potência do aparelho (W)",1500),("hd","Horas de uso por dia",1),("d","Dias de uso no mês",30),("t","Tarifa (R$/kWh, veja sua conta)",0.9)],
+  js="var k=pw*hd*d/1000;return 'Consumo: <b>'+f(k)+' kWh/mês</b><br>Custo estimado: <b>R$ '+f(k*t)+'</b> por mês';",
+  text="Consumo (kWh) = potência (W) × horas de uso × dias ÷ 1000. Use a tarifa com impostos que aparece na sua conta de luz; bandeiras tarifárias podem mudar o valor no mês.",
+  aff=("Medidores de consumo de energia (tomada)","medidor-consumo-energia-tomada")),
 ]
 CSS = "body{font-family:system-ui,sans-serif;max-width:720px;margin:0 auto;padding:16px;line-height:1.5;color:#222}header a{font-weight:700;text-decoration:none;color:#0a58ca}label{display:block;margin:10px 0 2px}input{width:100%;padding:8px;font-size:16px;box-sizing:border-box}button{margin-top:14px;padding:10px 18px;font-size:16px;background:#0a58ca;color:#fff;border:0;border-radius:6px;cursor:pointer}#res{margin-top:16px;padding:14px;background:#eef4ff;border-radius:8px}footer{margin-top:40px;font-size:13px;color:#666}li{margin:6px 0}"
 
@@ -66,7 +114,7 @@ for t in tools:
     w(t["slug"] + ".html", page(t["title"] + " | " + SITE, body, t["desc"], f'{SITEURL}/{t["slug"]}.html'))
     urls.append(t["slug"] + ".html")
 lst = "".join(f'<li><a href="{BASE}/{t["slug"]}.html">{t["short"]}</a> — {html.escape(t["desc"])}</li>' for t in tools)
-w("index.html", page(SITE + " — ferramentas gratuitas", f'<h1>{SITE}</h1><p>Ferramentas gratuitas em português para obra, finanças e dia a dia.</p><ul>{lst}</ul>', "Calculadoras gratuitas: tinta, piso, concreto, juros compostos, porcentagem e IMC.", SITEURL + "/"))
+w("index.html", page(SITE + " — ferramentas gratuitas", f'<h1>{SITE}</h1><p>Ferramentas gratuitas em português para obra, finanças e dia a dia.</p><ul>{lst}</ul>', "Calculadoras gratuitas em português: " + ", ".join(t["short"].lower() for t in tools) + ".", SITEURL + "/"))
 w("sobre.html", page("Sobre | " + SITE, "<h1>Sobre</h1><p>Site de calculadoras gratuitas. Os textos e ferramentas são criados com auxílio de inteligência artificial. Os resultados são estimativas e não substituem orientação profissional.</p>", "Sobre o site", SITEURL + "/sobre.html"))
 w("privacidade.html", page("Privacidade | " + SITE, "<h1>Política de privacidade</h1><p>Os cálculos são feitos no seu navegador; os valores digitados não são enviados a nenhum servidor. Futuramente o site poderá exibir anúncios (Google AdSense) e links de afiliados, que podem usar cookies de terceiros conforme as políticas desses serviços.</p>", "Política de privacidade", SITEURL + "/privacidade.html"))
 urls += ["sobre.html", "privacidade.html"]
