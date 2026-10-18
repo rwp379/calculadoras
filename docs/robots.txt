@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://rwp379.github.io/calculadoras/sitemap.xml
