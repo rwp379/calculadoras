@@ -71,7 +71,7 @@ function latas(L){
   ("Preciso de selador antes da tinta?", "Em reboco novo ou massa corrida, sim: o selador uniformiza a absorção e evita gastar tinta à toa. Em parede já pintada e em bom estado, normalmente não."),
   ("A calculadora considera a diluição?", "Não. A diluição recomendada pelo fabricante já está embutida no rendimento informado na embalagem."),
  ],
- related=["calculadora-de-alvenaria", "calculadora-de-piso"],
+ related=["calculadora-de-reboco", "calculadora-de-alvenaria", "calculadora-de-piso"],
  aff=("Rolos e pincéis para pintura", "rolo-de-pintura-kit"),
 ),
 dict(
@@ -217,8 +217,75 @@ return {rows:[
   ("Posso usar esta conta para alvenaria estrutural?", "Para estimar compra, sim. A definição de blocos, grauteamento e armaduras da alvenaria estrutural é do projeto."),
   ("Quanto de perda considerar?", "Entre 3% e 5% para blocos de boa qualidade e transporte cuidadoso; até 10% se houver muitos cortes."),
  ],
- related=["calculadora-de-concreto", "calculadora-de-tinta"],
+ related=["calculadora-de-reboco", "calculadora-de-concreto", "calculadora-de-tinta"],
  aff=("Colher de pedreiro e prumo", "colher-de-pedreiro-prumo"),
+),
+dict(
+ slug="calculadora-de-reboco",
+ short="Reboco",
+ title="Calculadora de Reboco: cimento, cal, areia e chapisco por m²",
+ h1="Calculadora de reboco (emboço e chapisco)",
+ desc="Calcule a argamassa para rebocar paredes descontando portas e janelas, em uma ou nas duas faces: sacos de cimento, de cal e metros de areia do traço 1 : 2 : 8, ou sacos de argamassa pronta, com o chapisco incluído.",
+ fields=[
+  ("comp", "Comprimento total das paredes", 10, 0.01, "m"),
+  ("alt", "Altura", 2.8, 0.01, "m"),
+  ("vaos", "Área de portas e janelas a descontar", 3, 0.1, "m²"),
+  ("faces", "Faces a revestir", [("1", "Uma face"), ("2", "As duas faces")], None, None),
+  ("esp", "Espessura do emboço (massa única)", 2, 0.5, "cm"),
+  ("tipo", "Argamassa", [("mista", "Feita em obra, traço 1 : 2 : 8 (cimento, cal e areia)"), ("pronta", "Industrializada, em sacos de 20 kg")], None, None),
+  ("cons", "Consumo da argamassa industrializada (veja a embalagem)", 17, 0.5, "kg/m² por cm"),
+  ("chap", "Incluir chapisco 1 : 3 (5 mm)?", [("1", "Sim"), ("0", "Não")], None, None),
+  ("perda", "Perda de argamassa", 20, 1, "%"),
+ ],
+ js="""
+var area = Math.max(comp*alt - vaos, 0)*faces;
+var k = 1 + perda/100;
+var vol = area*esp/100*k;
+var rows = [['Área a revestir', f(area)+' m²'+(faces==2 ? ' (duas faces)' : '')]];
+var buy = [], cim = 0;
+if(tipo=='mista'){
+ var c = vol*192.5, cal = vol*171.1, a = vol*1.14; cim += c;
+ rows.push(['Argamassa 1 : 2 : 8 (com '+f(perda)+'% de perda)', '<b>'+f(vol)+' m³</b>']);
+ rows.push(['Cimento do emboço', f(c)+' kg']);
+ rows.push(['Cal hidratada', '<b>'+Math.ceil(cal/20)+' sacos de 20 kg</b> ('+f(cal)+' kg)']);
+ rows.push(['Areia média', f(a)+' m³']);
+ buy.push(Math.ceil(cal/20)+' sacos de cal hidratada CH-I de 20 kg', f(a)+' m³ de areia média');
+} else {
+ var kg = area*esp*cons*k;
+ rows.push(['Argamassa industrializada (com '+f(perda)+'% de perda)', '<b>'+Math.ceil(kg/20)+' sacos de 20 kg</b> ('+f(kg)+' kg)']);
+ buy.push(Math.ceil(kg/20)+' sacos de 20 kg de argamassa para reboco (mesma marca e lote)');
+}
+if(chap==1){
+ var vc = area*0.005*k, cc = vc*478, ac = vc*1.06; cim += cc;
+ rows.push(['Chapisco 1 : 3 (5 mm)', f(vc)+' m³: '+f(cc)+' kg de cimento e '+f(ac)+' m³ de areia']);
+ buy.push(f(ac)+' m³ de areia grossa para o chapisco');
+}
+if(cim>0){
+ rows.push(['Cimento total', '<b>'+Math.ceil(cim/50)+' sacos de 50 kg</b> ('+f(cim)+' kg)']);
+ buy.unshift(Math.ceil(cim/50)+' sacos de cimento CP II de 50 kg');
+}
+buy.push('Régua de alumínio, desempenadeira e taliscas para manter o prumo');
+return {rows:rows, buy:buy,
+ warn: area<=0 ? 'A área ficou zerada: confira as medidas e os vãos.' : (esp<1 ? 'Emboço com menos de 1 cm raramente corrige o prumo da parede. Para apenas regularizar, avalie massa fina ou massa corrida.' : (esp>3 ? 'Acima de 3 cm, aplique em duas camadas, respeitando a cura entre elas, e avalie tela na argamassa. Espessura tão grande indica parede fora de prumo.' : ''))};
+""",
+ how=[
+  "Calcule a área: comprimento total das paredes × altura, menos portas e janelas. Se for revestir os dois lados, multiplique por 2.",
+  "Volume de argamassa = área × espessura (em metros) × (1 + perda). A perda em reboco é alta (material que cai e sobra na masseira); 20% é um valor prudente.",
+  "Traço 1 : 2 : 8 feito em obra: cada m³ de argamassa consome cerca de 192,5 kg de cimento, 171,1 kg de cal hidratada e 1,14 m³ de areia média (coeficientes da composição SINAPI 87369).",
+  "Argamassa industrializada: multiplique a área pela espessura em cm e pelo consumo da embalagem (em geral entre 16 e 20 kg/m² por cm).",
+  "Chapisco 1 : 3 com 5 mm: cada m³ consome cerca de 478 kg de cimento e 1,06 m³ de areia (SINAPI 100467). Some esse cimento ao do emboço.",
+ ],
+ example="Paredes somando 10 m de comprimento e 2,80 m de altura, descontando 3 m² de portas e janelas: 25 m² em uma face. Emboço de 2 cm com 20% de perda: 25 × 0,02 × 1,20 = 0,60 m³ de argamassa 1 : 2 : 8, que pede 115,5 kg de cimento, 102,7 kg de cal (6 sacos de 20 kg) e 0,68 m³ de areia média. O chapisco de 5 mm soma 0,15 m³: 71,7 kg de cimento e 0,16 m³ de areia grossa. Cimento total: 187,2 kg, ou 4 sacos de 50 kg.",
+ formula="Argamassa (m³) = (comprimento × altura − vãos) × faces × espessura × (1 + perda);  por m³ de 1 : 2 : 8: 192,5 kg de cimento, 171,1 kg de cal e 1,14 m³ de areia;  por m³ de chapisco 1 : 3: 478 kg de cimento e 1,06 m³ de areia",
+ faq=[
+  ("Qual a diferença entre chapisco, emboço e reboco?", "O chapisco é uma camada fina e áspera de cimento e areia que dá aderência. O emboço regulariza a parede e corrige o prumo. O reboco é o acabamento fino por cima. Hoje é comum fazer emboço e reboco numa camada só, a massa única, que é o que esta calculadora considera."),
+  ("Qual a espessura certa do reboco?", "Em paredes internas, em geral entre 0,5 e 2 cm; em paredes externas, entre 2 e 3 cm. Espessuras maiores costumam indicar parede fora de prumo e devem ser aplicadas em camadas."),
+  ("Quantos metros quadrados rende um saco de cimento no reboco?", "No traço 1 : 2 : 8 com 20% de perda, cerca de 11 m² com 2 cm de espessura e 14 m² com 1,5 cm. Rendimentos de 20 m² por saco só aparecem quando se ignora a perda ou se usa um traço mais fraco."),
+  ("Para que serve a cal na argamassa?", "A cal deixa a massa mais plástica e fácil de aplicar, retém água durante a cura e reduz fissuras. Por isso o traço misto 1 : 2 : 8 é o mais usado em emboço de paredes."),
+  ("Argamassa pronta ou feita em obra?", "A industrializada tem traço constante e dispensa o preparo, mas costuma custar mais por m². A feita em obra é mais barata em volumes grandes e exige dosagem cuidadosa. Use a opção do campo Argamassa para comparar as duas."),
+ ],
+ related=["calculadora-de-alvenaria", "calculadora-de-tinta"],
+ aff=("Desempenadeiras e réguas de pedreiro", "desempenadeira-de-aco"),
 ),
 dict(
  slug="calculadora-de-contrapiso",

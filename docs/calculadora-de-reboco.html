@@ -1,0 +1,87 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google-site-verification" content="lVqNX4_clxrA_3hEmZyA5nvMgk2JrCB1xlJymBVtD5Y"><title>Calculadora de Reboco: cimento, cal, areia e chapisco por m²</title><meta name="description" content="Calcule a argamassa para rebocar paredes descontando portas e janelas, em uma ou nas duas faces: sacos de cimento, de cal e metros de areia do traço 1 : 2 : 8, ou sacos de argamassa pronta, com o chapisco incluído."><link rel="canonical" href="https://rwp379.github.io/calculadoras/calculadora-de-reboco.html"><meta property="og:title" content="Calculadora de Reboco: cimento, cal, areia e chapisco por m²"><meta property="og:description" content="Calcule a argamassa para rebocar paredes descontando portas e janelas, em uma ou nas duas faces: sacos de cimento, de cal e metros de areia do traço 1 : 2 : 8, ou sacos de argamassa pronta, com o chapisco incluído."><meta property="og:type" content="website"><style>
+:root{--bg:#f7f6f2;--card:#fff;--ink:#1d2321;--muted:#5b6461;--line:#e3e1da;--accent:#b4501a;--accent-ink:#fff;--soft:#fbeee5;--warn:#7a4f00;--warn-bg:#fff4d6}
+@media (prefers-color-scheme:dark){:root{--bg:#141716;--card:#1d2120;--ink:#e9ece9;--muted:#a3aba7;--line:#2e3432;--accent:#f08a4b;--accent-ink:#1b0f07;--soft:#2a211b;--warn:#f1c76b;--warn-bg:#2b2412}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line);background:var(--card)}
+header.top .wrap{display:flex;align-items:center;gap:8px 20px;min-height:56px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+.brand{font-weight:800;text-decoration:none;color:var(--ink);letter-spacing:-.01em}
+.brand span{color:var(--accent)}
+nav.tools{display:flex;gap:4px 14px;flex-wrap:wrap;font-size:14px}
+nav.tools a{color:var(--muted);text-decoration:none}nav.tools a:hover{color:var(--accent)}
+h1{font-size:clamp(26px,4.5vw,36px);line-height:1.15;margin:28px 0 8px;letter-spacing:-.02em}
+h2{font-size:21px;margin:36px 0 10px}
+.lead{color:var(--muted);margin:0 0 20px;max-width:65ch}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+@media (max-width:720px){.calc{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+label{display:block;font-size:14px;color:var(--muted);margin:12px 0 4px}
+form label:first-child{margin-top:0}
+.inp{display:flex;align-items:center;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.inp input,select{width:100%;border:0;background:transparent;color:var(--ink);font:inherit;padding:9px 10px;outline:none;min-width:0}
+select{border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.inp:focus-within,select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.inp em{font-style:normal;color:var(--muted);padding:0 10px;font-size:14px;white-space:nowrap}
+.res h3{margin:0 0 8px;font-size:13px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+table{width:100%;border-collapse:collapse;font-size:15px}
+td{padding:7px 0;border-bottom:1px solid var(--line);vertical-align:top}td:last-child{text-align:right;padding-left:12px}
+.buy{background:var(--soft);border-radius:10px;padding:12px 14px;margin-top:14px}
+.buy ul{margin:6px 0 0;padding-left:20px}
+.warn{background:var(--warn-bg);color:var(--warn);border-radius:8px;padding:10px 12px;margin-top:12px;font-size:14px}
+.warn:empty{display:none}
+button.copy{margin-top:10px;background:var(--accent);color:var(--accent-ink);border:0;border-radius:8px;padding:8px 14px;font:inherit;font-weight:600;cursor:pointer}
+ol.steps li{margin:6px 0}
+.formula{font-family:ui-monospace,Consolas,monospace;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:14px;overflow-x:auto}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:8px 0}
+summary{cursor:pointer;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:16px}
+a.card{display:block;text-decoration:none;color:var(--ink)}
+a.card:hover{border-color:var(--accent)}
+a.card b{display:block;margin-bottom:4px}a.card small{color:var(--muted)}
+.note{font-size:14px;color:var(--muted)}
+footer{margin-top:48px;padding-top:16px;padding-bottom:24px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+</style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Qual a diferença entre chapisco, emboço e reboco?", "acceptedAnswer": {"@type": "Answer", "text": "O chapisco é uma camada fina e áspera de cimento e areia que dá aderência. O emboço regulariza a parede e corrige o prumo. O reboco é o acabamento fino por cima. Hoje é comum fazer emboço e reboco numa camada só, a massa única, que é o que esta calculadora considera."}}, {"@type": "Question", "name": "Qual a espessura certa do reboco?", "acceptedAnswer": {"@type": "Answer", "text": "Em paredes internas, em geral entre 0,5 e 2 cm; em paredes externas, entre 2 e 3 cm. Espessuras maiores costumam indicar parede fora de prumo e devem ser aplicadas em camadas."}}, {"@type": "Question", "name": "Quantos metros quadrados rende um saco de cimento no reboco?", "acceptedAnswer": {"@type": "Answer", "text": "No traço 1 : 2 : 8 com 20% de perda, cerca de 11 m² com 2 cm de espessura e 14 m² com 1,5 cm. Rendimentos de 20 m² por saco só aparecem quando se ignora a perda ou se usa um traço mais fraco."}}, {"@type": "Question", "name": "Para que serve a cal na argamassa?", "acceptedAnswer": {"@type": "Answer", "text": "A cal deixa a massa mais plástica e fácil de aplicar, retém água durante a cura e reduz fissuras. Por isso o traço misto 1 : 2 : 8 é o mais usado em emboço de paredes."}}, {"@type": "Question", "name": "Argamassa pronta ou feita em obra?", "acceptedAnswer": {"@type": "Answer", "text": "A industrializada tem traço constante e dispensa o preparo, mas costuma custar mais por m². A feita em obra é mais barata em volumes grandes e exige dosagem cuidadosa. Use a opção do campo Argamassa para comparar as duas."}}]}</script></head><body><header class="top"><div class="wrap"><a class="brand" href="/calculadoras/">Calculadoras <span>de Obra</span></a><nav class="tools" aria-label="Calculadoras"><a href="/calculadoras/calculadora-de-tinta.html">Tinta</a><a href="/calculadoras/calculadora-de-piso.html">Piso e rejunte</a><a href="/calculadoras/calculadora-de-concreto.html">Concreto</a><a href="/calculadoras/calculadora-de-alvenaria.html">Tijolos e blocos</a><a href="/calculadoras/calculadora-de-reboco.html">Reboco</a><a href="/calculadoras/calculadora-de-contrapiso.html">Contrapiso</a></nav></div></header><main class="wrap"><h1>Calculadora de reboco (emboço e chapisco)</h1><p class="lead">Calcule a argamassa para rebocar paredes descontando portas e janelas, em uma ou nas duas faces: sacos de cimento, de cal e metros de areia do traço 1 : 2 : 8, ou sacos de argamassa pronta, com o chapisco incluído.</p><section class="calc"><form class="card" onsubmit="return false"><label for="comp">Comprimento total das paredes</label><div class="inp"><input id="comp" data-k="comp" type="number" inputmode="decimal" min="0" step="0.01" value="10"><em>m</em></div><label for="alt">Altura</label><div class="inp"><input id="alt" data-k="alt" type="number" inputmode="decimal" min="0" step="0.01" value="2.8"><em>m</em></div><label for="vaos">Área de portas e janelas a descontar</label><div class="inp"><input id="vaos" data-k="vaos" type="number" inputmode="decimal" min="0" step="0.1" value="3"><em>m²</em></div><label for="faces">Faces a revestir</label><select id="faces" data-k="faces"><option value="1">Uma face</option><option value="2">As duas faces</option></select><label for="esp">Espessura do emboço (massa única)</label><div class="inp"><input id="esp" data-k="esp" type="number" inputmode="decimal" min="0" step="0.5" value="2"><em>cm</em></div><label for="tipo">Argamassa</label><select id="tipo" data-k="tipo"><option value="mista">Feita em obra, traço 1 : 2 : 8 (cimento, cal e areia)</option><option value="pronta">Industrializada, em sacos de 20 kg</option></select><label for="cons">Consumo da argamassa industrializada (veja a embalagem)</label><div class="inp"><input id="cons" data-k="cons" type="number" inputmode="decimal" min="0" step="0.5" value="17"><em>kg/m² por cm</em></div><label for="chap">Incluir chapisco 1 : 3 (5 mm)?</label><select id="chap" data-k="chap"><option value="1">Sim</option><option value="0">Não</option></select><label for="perda">Perda de argamassa</label><div class="inp"><input id="perda" data-k="perda" type="number" inputmode="decimal" min="0" step="1" value="20"><em>%</em></div></form><div class="card res" aria-live="polite"><h3>Resultado</h3><table><tbody id="rows"></tbody></table><div class="buy"><b>Lista de compras</b><ul id="buy"></ul></div><button class="copy" id="cp" type="button" onclick="copyList()">Copiar lista de compras</button><div class="warn" id="warn"></div></div></section><h2>Como calcular, passo a passo</h2><ol class="steps"><li>Calcule a área: comprimento total das paredes × altura, menos portas e janelas. Se for revestir os dois lados, multiplique por 2.</li><li>Volume de argamassa = área × espessura (em metros) × (1 + perda). A perda em reboco é alta (material que cai e sobra na masseira); 20% é um valor prudente.</li><li>Traço 1 : 2 : 8 feito em obra: cada m³ de argamassa consome cerca de 192,5 kg de cimento, 171,1 kg de cal hidratada e 1,14 m³ de areia média (coeficientes da composição SINAPI 87369).</li><li>Argamassa industrializada: multiplique a área pela espessura em cm e pelo consumo da embalagem (em geral entre 16 e 20 kg/m² por cm).</li><li>Chapisco 1 : 3 com 5 mm: cada m³ consome cerca de 478 kg de cimento e 1,06 m³ de areia (SINAPI 100467). Some esse cimento ao do emboço.</li></ol><h2>Exemplo resolvido</h2><p>Paredes somando 10 m de comprimento e 2,80 m de altura, descontando 3 m² de portas e janelas: 25 m² em uma face. Emboço de 2 cm com 20% de perda: 25 × 0,02 × 1,20 = 0,60 m³ de argamassa 1 : 2 : 8, que pede 115,5 kg de cimento, 102,7 kg de cal (6 sacos de 20 kg) e 0,68 m³ de areia média. O chapisco de 5 mm soma 0,15 m³: 71,7 kg de cimento e 0,16 m³ de areia grossa. Cimento total: 187,2 kg, ou 4 sacos de 50 kg.</p><h2>Fórmula usada</h2><div class="formula">Argamassa (m³) = (comprimento × altura − vãos) × faces × espessura × (1 + perda);  por m³ de 1 : 2 : 8: 192,5 kg de cimento, 171,1 kg de cal e 1,14 m³ de areia;  por m³ de chapisco 1 : 3: 478 kg de cimento e 1,06 m³ de areia</div><h2>Perguntas frequentes</h2><details><summary>Qual a diferença entre chapisco, emboço e reboco?</summary><p>O chapisco é uma camada fina e áspera de cimento e areia que dá aderência. O emboço regulariza a parede e corrige o prumo. O reboco é o acabamento fino por cima. Hoje é comum fazer emboço e reboco numa camada só, a massa única, que é o que esta calculadora considera.</p></details><details><summary>Qual a espessura certa do reboco?</summary><p>Em paredes internas, em geral entre 0,5 e 2 cm; em paredes externas, entre 2 e 3 cm. Espessuras maiores costumam indicar parede fora de prumo e devem ser aplicadas em camadas.</p></details><details><summary>Quantos metros quadrados rende um saco de cimento no reboco?</summary><p>No traço 1 : 2 : 8 com 20% de perda, cerca de 11 m² com 2 cm de espessura e 14 m² com 1,5 cm. Rendimentos de 20 m² por saco só aparecem quando se ignora a perda ou se usa um traço mais fraco.</p></details><details><summary>Para que serve a cal na argamassa?</summary><p>A cal deixa a massa mais plástica e fácil de aplicar, retém água durante a cura e reduz fissuras. Por isso o traço misto 1 : 2 : 8 é o mais usado em emboço de paredes.</p></details><details><summary>Argamassa pronta ou feita em obra?</summary><p>A industrializada tem traço constante e dispensa o preparo, mas costuma custar mais por m². A feita em obra é mais barata em volumes grandes e exige dosagem cuidadosa. Use a opção do campo Argamassa para comparar as duas.</p></details><p class="note">Ferramentas úteis: <a rel="sponsored nofollow noopener" target="_blank" href="https://lista.mercadolivre.com.br/desempenadeira-de-aco">Desempenadeiras e réguas de pedreiro no Mercado Livre</a>.</p><h2>Calculadoras relacionadas</h2><div class="grid"><a class="card" href="/calculadoras/calculadora-de-tinta.html"><b>Tinta</b><small>Calcule a área a pintar descontando portas e janelas, os litros de tinta por demão e a combinação mais econômica de latas de 18 L, 3,6 L e 900 ml.</small></a><a class="card" href="/calculadoras/calculadora-de-alvenaria.html"><b>Tijolos e blocos</b><small>Calcule quantos blocos cerâmicos ou de concreto você precisa para levantar uma parede e o volume de argamassa de assentamento, descontando portas e janelas.</small></a></div><script>
+function f(x){return Number(x).toLocaleString('pt-BR',{maximumFractionDigits:2})}
+function run(){
+ var v={};document.querySelectorAll('[data-k]').forEach(function(el){v[el.dataset.k]=el.tagName==='SELECT'?el.value:(parseFloat(el.value)||0);});
+ var r=calc(v);
+ document.getElementById('rows').innerHTML=r.rows.map(function(x){return '<tr><td>'+x[0]+'</td><td>'+x[1]+'</td></tr>'}).join('');
+ document.getElementById('buy').innerHTML=r.buy.map(function(x){return '<li>'+x+'</li>'}).join('');
+ document.getElementById('warn').textContent=r.warn||'';
+}
+function copyList(){var t=Array.from(document.querySelectorAll('#buy li')).map(function(li){return '- '+li.textContent}).join('\n');
+ if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){var b=document.getElementById('cp');b.textContent='Copiado!';setTimeout(function(){b.textContent='Copiar lista de compras'},1500)})}}
+document.addEventListener('input',run);document.addEventListener('change',run);
+function calc(v){var comp=v.comp;var alt=v.alt;var vaos=v.vaos;var faces=v.faces;var esp=v.esp;var tipo=v.tipo;var cons=v.cons;var chap=v.chap;var perda=v.perda;
+var area = Math.max(comp*alt - vaos, 0)*faces;
+var k = 1 + perda/100;
+var vol = area*esp/100*k;
+var rows = [['Área a revestir', f(area)+' m²'+(faces==2 ? ' (duas faces)' : '')]];
+var buy = [], cim = 0;
+if(tipo=='mista'){
+ var c = vol*192.5, cal = vol*171.1, a = vol*1.14; cim += c;
+ rows.push(['Argamassa 1 : 2 : 8 (com '+f(perda)+'% de perda)', '<b>'+f(vol)+' m³</b>']);
+ rows.push(['Cimento do emboço', f(c)+' kg']);
+ rows.push(['Cal hidratada', '<b>'+Math.ceil(cal/20)+' sacos de 20 kg</b> ('+f(cal)+' kg)']);
+ rows.push(['Areia média', f(a)+' m³']);
+ buy.push(Math.ceil(cal/20)+' sacos de cal hidratada CH-I de 20 kg', f(a)+' m³ de areia média');
+} else {
+ var kg = area*esp*cons*k;
+ rows.push(['Argamassa industrializada (com '+f(perda)+'% de perda)', '<b>'+Math.ceil(kg/20)+' sacos de 20 kg</b> ('+f(kg)+' kg)']);
+ buy.push(Math.ceil(kg/20)+' sacos de 20 kg de argamassa para reboco (mesma marca e lote)');
+}
+if(chap==1){
+ var vc = area*0.005*k, cc = vc*478, ac = vc*1.06; cim += cc;
+ rows.push(['Chapisco 1 : 3 (5 mm)', f(vc)+' m³: '+f(cc)+' kg de cimento e '+f(ac)+' m³ de areia']);
+ buy.push(f(ac)+' m³ de areia grossa para o chapisco');
+}
+if(cim>0){
+ rows.push(['Cimento total', '<b>'+Math.ceil(cim/50)+' sacos de 50 kg</b> ('+f(cim)+' kg)']);
+ buy.unshift(Math.ceil(cim/50)+' sacos de cimento CP II de 50 kg');
+}
+buy.push('Régua de alumínio, desempenadeira e taliscas para manter o prumo');
+return {rows:rows, buy:buy,
+ warn: area<=0 ? 'A área ficou zerada: confira as medidas e os vãos.' : (esp<1 ? 'Emboço com menos de 1 cm raramente corrige o prumo da parede. Para apenas regularizar, avalie massa fina ou massa corrida.' : (esp>3 ? 'Acima de 3 cm, aplique em duas camadas, respeitando a cura entre elas, e avalie tela na argamassa. Espessura tão grande indica parede fora de prumo.' : ''))};
+}run();</script></main><footer class="wrap">Os resultados são estimativas para compra de material e não substituem projeto nem orientação de profissional habilitado. Atualizado em 19/10/2026. <a href="/calculadoras/sobre.html">Sobre</a> · <a href="/calculadoras/privacidade.html">Privacidade</a></footer></body></html>
