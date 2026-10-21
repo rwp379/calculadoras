@@ -71,7 +71,7 @@ function latas(L){
   ("Preciso de selador antes da tinta?", "Em reboco novo ou massa corrida, sim: o selador uniformiza a absorção e evita gastar tinta à toa. Em parede já pintada e em bom estado, normalmente não."),
   ("A calculadora considera a diluição?", "Não. A diluição recomendada pelo fabricante já está embutida no rendimento informado na embalagem."),
  ],
- related=["calculadora-de-reboco", "calculadora-de-alvenaria", "calculadora-de-piso"],
+ related=["calculadora-de-massa-corrida", "calculadora-de-reboco", "calculadora-de-alvenaria"],
  aff=("Rolos e pincéis para pintura", "rolo-de-pintura-kit"),
 ),
 dict(
@@ -284,7 +284,7 @@ return {rows:rows, buy:buy,
   ("Para que serve a cal na argamassa?", "A cal deixa a massa mais plástica e fácil de aplicar, retém água durante a cura e reduz fissuras. Por isso o traço misto 1 : 2 : 8 é o mais usado em emboço de paredes."),
   ("Argamassa pronta ou feita em obra?", "A industrializada tem traço constante e dispensa o preparo, mas costuma custar mais por m². A feita em obra é mais barata em volumes grandes e exige dosagem cuidadosa. Use a opção do campo Argamassa para comparar as duas."),
  ],
- related=["calculadora-de-alvenaria", "calculadora-de-tinta"],
+ related=["calculadora-de-alvenaria", "calculadora-de-massa-corrida", "calculadora-de-tinta"],
  aff=("Desempenadeiras e réguas de pedreiro", "desempenadeira-de-aco"),
 ),
 dict(
@@ -326,6 +326,89 @@ return {rows:[
  ],
  related=["calculadora-de-piso", "calculadora-de-concreto"],
  aff=("Régua de alumínio e desempenadeira", "regua-de-aluminio-pedreiro"),
+),
+dict(
+ slug="calculadora-de-massa-corrida",
+ short="Massa corrida",
+ title="Calculadora de Massa Corrida: quantos baldes, selador e lixa",
+ h1="Calculadora de massa corrida para paredes e tetos",
+ desc="Calcule quantos quilos de massa corrida usar por demão, descontando portas e janelas, e a combinação de baldes de 25 kg e galões, com selador e lixa na lista de compras.",
+ fields=[
+  ("perim", "Perímetro do cômodo (soma das paredes)", 14, 0.1, "m"),
+  ("alt", "Pé-direito", 2.7, 0.05, "m"),
+  ("teto", "Emassar o teto também?", [("0", "Não"), ("1", "Sim")], None, None),
+  ("area_teto", "Área do teto (se for emassar)", 12, 0.1, "m²"),
+  ("portas", "Portas (0,80 × 2,10 m)", 1, 1, "un"),
+  ("janelas", "Janelas (1,20 × 1,00 m)", 1, 1, "un"),
+  ("demaos", "Demãos de massa", [("2", "2 demãos (padrão para acabamento liso)"), ("1", "1 demão (retoques ou parede já lisa)"), ("3", "3 demãos (reboco muito áspero)")], None, None),
+  ("sel", "Incluir fundo selador antes da massa?", [("1", "Sim"), ("0", "Não, a parede já está selada ou pintada")], None, None),
+  ("perda", "Perda", 10, 1, "%"),
+  ("galao", "Peso do galão de 3,6 L (veja a embalagem)", 5.7, 0.1, "kg"),
+ ],
+ js="""
+var paredes = perim*alt;
+var vaos = portas*0.8*2.1 + janelas*1.2*1.0;
+var area = Math.max(paredes - vaos, 0) + (teto==1 ? area_teto : 0);
+var k = 1 + perda/100;
+var porM2 = 0.7288 + 0.6101*(demaos-1);
+var kg = area*porM2*k;
+var emb = baldes(kg, galao);
+var lixas = Math.ceil(area*0.0401*demaos);
+var rows = [
+ ['Área bruta das paredes', f(paredes)+' m²'],
+ ['Desconto de portas e janelas', '− '+f(vaos)+' m²'],
+ ['Teto', teto==1 ? '+ '+f(area_teto)+' m²' : 'não incluído'],
+ ['Área a emassar', f(area)+' m²'],
+ ['Consumo ('+demaos+(demaos==1?' demão':' demãos')+')', f(porM2)+' kg/m²'],
+ ['Massa corrida (com '+f(perda)+'% de perda)', '<b>'+f(kg)+' kg</b>'],
+ ['Embalagens', '<b>'+emb+'</b>']];
+var buy = [emb+' de massa corrida (PVA para ambientes internos secos; acrílica para cozinha, banheiro e área externa)'];
+if(sel==1){
+ var L = area*0.1666*k;
+ rows.push(['Fundo selador acrílico (1 demão)', f(L)+' L']);
+ buy.push(seladores(L)+' de fundo selador acrílico');
+}
+buy.push(lixas+' folhas de lixa nº 120 para parede (compre algumas a mais, e lixa 150 ou 180 para o acabamento final)', 'Desempenadeira de aço, espátula e trincha ou rolo para o selador');
+return {rows:rows, buy: area>0 ? buy : [],
+ warn: area<=0 ? 'A área ficou zerada: confira as medidas e os vãos.' : (galao<=0 ? 'Informe o peso do galão para combinar as embalagens.' : (demaos==1 ? 'Uma demão só costuma bastar para retoques ou parede já lisa; em reboco novo, conte com duas.' : ''))};
+""",
+ extra_js="""
+function baldes(kg, g){
+ if(kg<=0) return 'Nenhuma embalagem necessária';
+ var n=Math.floor(kg/25), gl=g>0 ? Math.ceil((kg-n*25)/g-1e-9) : 0;
+ if(gl>2 || g<=0){n++; gl=0;}
+ var out=[];
+ if(n) out.push(n+(n>1?' baldes':' balde')+' de 25 kg');
+ if(gl) out.push(gl+(gl>1?' galões':' galão')+' de '+f(g)+' kg');
+ return out.join(' + ')+' ('+f(n*25+gl*g)+' kg)';
+}
+function seladores(L){
+ var n=Math.floor(L/18), gl=Math.ceil((L-n*18)/3.6-1e-9);
+ if(gl>3){n++; gl=0;}
+ var out=[];
+ if(n) out.push(n+(n>1?' latas':' lata')+' de 18 L');
+ if(gl) out.push(gl+(gl>1?' galões':' galão')+' de 3,6 L');
+ return out.join(' + ');
+}
+""",
+ how=[
+  "Some o comprimento das paredes (perímetro), multiplique pelo pé-direito e desconte portas e janelas. Some a área do teto se ele também for emassado.",
+  "Consumo de referência da massa látex com lixamento manual: cerca de 0,73 kg/m² na primeira demão e 0,61 kg/m² em cada demão seguinte, ou 1,34 kg/m² nas duas demãos (composições SINAPI 88495 e 88497).",
+  "Multiplique a área pelo consumo e acrescente a perda (10% é um valor prudente; aumente se o reboco for muito áspero).",
+  "Divida por 25 kg para saber quantos baldes comprar. Se faltarem até dois galões para completar, eles saem mais em conta que um balde a mais; a partir de três, compre outro balde.",
+  "Antes da massa, aplique uma demão de fundo selador em reboco novo: cerca de 0,17 L/m² (SINAPI 88485). Lixa nº 120: cerca de 1 folha a cada 25 m² por demão.",
+ ],
+ example="Quarto de 3 × 4 m com pé-direito de 2,70 m: 37,8 m² de parede. Descontando uma porta (1,68 m²) e uma janela (1,2 m²), sobram 34,92 m². Em duas demãos são 34,92 × 1,3389 = 46,75 kg, ou 51,43 kg com 10% de perda: 2 baldes de 25 kg e 1 galão. O selador soma 34,92 × 0,1666 × 1,10 = 6,4 L (2 galões de 3,6 L), e a lixa, 3 folhas.",
+ formula="Massa (kg) = (perímetro × pé-direito − vãos + teto) × [0,73 + 0,61 × (demãos − 1)] × (1 + perda);  selador (L) = área × 0,1666 × (1 + perda)",
+ faq=[
+  ("Quantos metros quadrados rende um balde de 25 kg de massa corrida?", "Com o consumo de referência do SINAPI, cerca de 34 m² na primeira demão e perto de 19 m² considerando as duas demãos. Anúncios que falam em 70 m² ou mais por balde consideram camadas muito finas sobre superfície já lisa; em reboco comum, conte com bem menos."),
+  ("Massa corrida PVA ou acrílica?", "A PVA é mais barata e fácil de lixar, mas só serve para ambientes internos secos. Em cozinha, banheiro, área de serviço e paredes externas use massa acrílica, que resiste à umidade."),
+  ("Precisa passar selador antes da massa corrida?", "Em reboco novo, sim: o fundo selador uniformiza a absorção, melhora a aderência e evita que a massa seque rápido demais e trinque. Em parede já pintada e firme, normalmente basta lixar e limpar o pó."),
+  ("Quantas demãos de massa corrida passar?", "Em geral duas, finas e cruzadas, com lixamento entre elas. Camadas grossas trincam e demoram a secar. Para corrigir desníveis grandes, o certo é refazer o reboco, não engrossar a massa."),
+  ("Quanto tempo esperar entre a massa e a tinta?", "Respeite o intervalo indicado na embalagem, que costuma ser de algumas horas entre demãos de massa. Depois do último lixamento, remova o pó e aplique a tinta ou um fundo preparador, conforme o fabricante."),
+ ],
+ related=["calculadora-de-tinta", "calculadora-de-reboco"],
+ aff=("Desempenadeiras e espátulas para massa corrida", "desempenadeira-de-aco-massa-corrida"),
 ),
 ]
 
