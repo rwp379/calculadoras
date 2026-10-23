@@ -25,23 +25,28 @@ dict(
   ("area_teto", "Área do teto (se for pintar)", 12, 0.1, "m²"),
   ("portas", "Portas (0,80 × 2,10 m)", 1, 1, "un"),
   ("janelas", "Janelas (1,20 × 1,00 m)", 1, 1, "un"),
+  ("outros", "Outros vãos fora do padrão (área total)", 0, 0.1, "m²"),
   ("demaos", "Demãos", 2, 1, "un"),
   ("rend", "Rendimento por demão (confira a embalagem)", [("10", "Standard (≈ 10 m²/L)"), ("8", "Econômica (≈ 8 m²/L)"), ("13", "Premium (≈ 13 m²/L)")], None, None),
  ],
  js="""
 var paredes = perim*alt;
-var vaos = portas*0.8*2.1 + janelas*1.2*1.0;
+var vaos = portas*0.8*2.1 + janelas*1.2*1.0 + outros;
 var liq = Math.max(paredes - vaos, 0) + (teto==1 ? area_teto : 0);
 var litros = liq*demaos/rend*1.10;
 var combo = latas(litros);
+var sel = liq*0.1666*1.10;
+var w = '';
+if (liq<=0) w = 'Confira as medidas: a área líquida ficou zerada.';
+else if (vaos > paredes*0.5) w = 'Os vãos passam de metade da área das paredes. Confira se as medidas das portas, janelas e outros vãos estão em m².';
 return {rows:[
  ['Área bruta das paredes', f(paredes)+' m²'],
- ['Desconto de portas e janelas', '− '+f(vaos)+' m²'],
+ ['Desconto de portas, janelas e outros vãos', '− '+f(vaos)+' m²'],
  ['Teto', teto==1 ? '+ '+f(area_teto)+' m²' : 'não incluído'],
  ['Área líquida a pintar', f(liq)+' m²'],
  ['Tinta necessária (com 10% de perda)', '<b>'+f(litros)+' L</b>']],
- buy:[combo, 'Selador ou fundo preparador se a parede for nova ou tiver reboco aparente', 'Rolo de lã, pincel, bandeja e fita crepe'],
- warn: liq<=0 ? 'Confira as medidas: a área líquida ficou zerada.' : ''};
+ buy:[combo, 'Se a parede for nova ou tiver reboco aparente: cerca de '+f(sel)+' L de selador acrílico (1 demão)', 'Rolo de lã, pincel, bandeja e fita crepe'],
+ warn: w};
 """,
  extra_js="""
 function latas(L){
@@ -59,7 +64,7 @@ function latas(L){
 """,
  how=[
   "Some o comprimento de todas as paredes do cômodo (perímetro) e multiplique pelo pé-direito.",
-  "Desconte os vãos: uma porta padrão tem cerca de 1,68 m² e uma janela de 1,20 × 1,00 m tem 1,2 m².",
+  "Desconte os vãos: uma porta padrão tem cerca de 1,68 m² e uma janela de 1,20 × 1,00 m tem 1,2 m². Porta de correr, porta dupla, vitrô ou janela maior: some a largura × altura de cada um no campo de outros vãos.",
   "Multiplique a área líquida pelo número de demãos e divida pelo rendimento da tinta.",
   "Acrescente 10% para perdas no rolo, na bandeja e em retoques.",
  ],
@@ -68,7 +73,7 @@ function latas(L){
  faq=[
   ("Quantas demãos de tinta preciso?", "Em geral duas. Uma terceira costuma ser necessária ao trocar de uma cor escura para uma clara ou com tintas econômicas de baixa cobertura."),
   ("Qual o rendimento de uma lata de 18 litros?", "Depende da linha. Tintas econômicas rendem perto de 8 m² por litro por demão, e linhas premium podem passar de 12. O número exato está na embalagem; escolha a opção mais próxima no campo de rendimento."),
-  ("Preciso de selador antes da tinta?", "Em reboco novo ou massa corrida, sim: o selador uniformiza a absorção e evita gastar tinta à toa. Em parede já pintada e em bom estado, normalmente não."),
+  ("Preciso de selador antes da tinta?", "Em reboco novo ou massa corrida, sim: o selador uniformiza a absorção e evita gastar tinta à toa. Em parede já pintada e em bom estado, normalmente não. A calculadora estima o selador com o consumo de referência do SINAPI (cerca de 0,17 L/m² em uma demão, composição 88485) mais 10% de perda; confira o rendimento na embalagem."),
   ("A calculadora considera a diluição?", "Não. A diluição recomendada pelo fabricante já está embutida no rendimento informado na embalagem."),
  ],
  related=["calculadora-de-massa-corrida", "calculadora-de-reboco", "calculadora-de-alvenaria"],
