@@ -128,8 +128,81 @@ return {rows:[
   ("Qual argamassa usar: AC-I, AC-II ou AC-III?", "AC-I para áreas internas, AC-II para áreas externas e AC-III para porcelanatos grandes, piscinas e fachadas. A embalagem do piso costuma indicar o tipo."),
   ("Por que a junta influencia tanto o rejunte?", "O consumo é proporcional à largura e à profundidade da junta. Dobrar a junta dobra o rejunte."),
  ],
- related=["calculadora-de-contrapiso", "calculadora-de-tinta"],
+ related=["calculadora-de-azulejo", "calculadora-de-contrapiso", "calculadora-de-tinta"],
  aff=("Niveladores e espaçadores para piso", "nivelador-de-piso-espacador"),
+),
+dict(
+ slug="calculadora-de-azulejo",
+ short="Azulejo de parede",
+ title="Calculadora de Azulejo: caixas, argamassa, rejunte e cantoneiras para parede",
+ h1="Calculadora de azulejo e revestimento de parede",
+ desc="Calcule quantas caixas de azulejo comprar para banheiro, cozinha ou área de serviço, até o teto ou meia parede, descontando portas e janelas, com argamassa colante, rejunte e cantoneiras na lista de compras.",
+ fields=[
+  ("comp", "Comprimento das paredes a revestir (soma)", 9, 0.01, "m"),
+  ("alt", "Altura do revestimento (até o teto ou até a faixa)", 2.5, 0.01, "m"),
+  ("portas", "Portas (0,80 × 2,10 m)", 1, 1, "un"),
+  ("janelas", "Janelas e outros vãos (área total)", 0.36, 0.01, "m²"),
+  ("pc", "Comprimento da peça", 45, 0.5, "cm"),
+  ("pl", "Largura da peça", 33, 0.5, "cm"),
+  ("esp", "Espessura da peça", 7, 0.5, "mm"),
+  ("junta", "Largura da junta", 2, 0.5, "mm"),
+  ("m2cx", "Metragem por caixa (veja a embalagem)", 2.08, 0.01, "m²"),
+  ("tipo", "Paginação", [("10", "Reta (≈ 10% de perda)"), ("15", "Diagonal, amarrada ou muitos recortes (≈ 15%)")], None, None),
+  ("cons", "Consumo de argamassa colante (veja a embalagem)", 6.85, 0.05, "kg/m²"),
+  ("quinas", "Quinas e arremates com cantoneira (comprimento total)", 2.4, 0.1, "m"),
+ ],
+ js="""
+var bruta = comp*alt;
+var vaos = portas*0.8*Math.min(2.1, alt) + janelas;
+var area = Math.max(bruta - vaos, 0);
+var compra = area*(1+tipo/100);
+var caixas = m2cx>0 ? Math.ceil(compra/m2cx-1e-9) : 0;
+var C=pc*10, L=pl*10;
+var rej = (C>0&&L>0) ? (C+L)*esp*junta/(C*L)*1.58*area : 0;
+var arg = area*cons;
+var sacos = Math.ceil(arg/20-1e-9);
+var barras = Math.ceil(quinas*1.1/2.5-1e-9);
+var grande = pc*pl >= 3600, dupla = pc*pl >= 900;
+var rows = [
+ ['Área bruta das paredes', f(bruta)+' m²'],
+ ['Desconto de portas e vãos', '− '+f(vaos)+' m²'],
+ ['Área a revestir', f(area)+' m²'],
+ ['Área com perda ('+tipo+'%)', f(compra)+' m²'],
+ ['Caixas de azulejo', '<b>'+caixas+' caixas</b> ('+f(caixas*m2cx)+' m²)'],
+ ['Argamassa colante', '<b>'+sacos+' sacos de 20 kg</b> ('+f(arg)+' kg'+(dupla ? ', colagem dupla' : '')+')'],
+ ['Rejunte', '<b>'+f(rej)+' kg</b>']];
+if(quinas>0) rows.push(['Cantoneiras (barras de 2,5 m, +10% para cortes)', barras+' barras']);
+var buy = [caixas+' caixas de azulejo, todas do mesmo lote e tonalidade',
+ sacos+' saco(s) de argamassa colante de 20 kg ('+(grande ? 'AC-III, como pedem peças grandes' : 'AC-I em parede interna seca; AC-II em área externa')+')',
+ Math.max(Math.ceil(rej),1)+' kg de rejunte (no box, prefira rejunte acrílico ou epóxi)'];
+if(quinas>0) buy.push(barras+' barras de cantoneira ou perfil de acabamento para '+f(quinas)+' m de quinas');
+buy.push('Espaçadores de '+f(junta)+' mm, desempenadeira dentada e nível ou prumo');
+var w = '';
+if(area<=0) w = 'A área ficou zerada: confira as medidas e os vãos.';
+else if(m2cx<=0) w = 'Informe a metragem por caixa.';
+else if(vaos > bruta*0.5) w = 'Os vãos passam de metade da área das paredes. Confira se a área dos vãos está em m².';
+else if(grande) w = 'Peças a partir de 60 × 60 cm em parede exigem argamassa AC-III, colagem dupla e cuidado redobrado com o prumo. Siga a orientação do fabricante da peça, principalmente em paredes altas.';
+else if(alt>3.2) w = 'Altura acima de 3,2 m: confira se a medida é mesmo a altura do revestimento, e não o comprimento.';
+return {rows:rows, buy: area>0 ? buy : [], warn: w};
+""",
+ how=[
+  "Some o comprimento das paredes que vão receber azulejo e multiplique pela altura do revestimento: até o teto, ou até a faixa, se for meia parede (comum em cozinha e área de serviço).",
+  "Desconte os vãos. A porta só é descontada até a altura revestida: numa meia parede de 1,50 m, uma porta de 0,80 m tira 1,2 m², não 1,68 m². Some a área de janelas, basculantes e nichos no campo de outros vãos.",
+  "Acrescente a perda: cerca de 10% para paginação reta e 15% para diagonal, amarrada ou banheiro com muitos recortes (registros, box, nichos). Divida pela metragem da caixa e arredonde para cima.",
+  "Argamassa colante: o consumo de referência do SINAPI para azulejo em parede interna é 6,85 kg/m² (composição 87273). Se a embalagem da sua argamassa indicar outro valor, troque no campo.",
+  "Rejunte: use a fórmula dos fabricantes, que depende do tamanho da peça, da espessura e da largura da junta. Cantoneiras: some o comprimento das quinas externas (contorno de janela, nicho, mureta) e divida pelo tamanho da barra.",
+ ],
+ example="Banheiro de 2,00 × 2,50 m: as paredes somam 9 m e o azulejo vai até o forro, a 2,50 m, num total de 22,5 m². Descontando a porta (0,80 × 2,10 = 1,68 m²) e um basculante de 60 × 60 cm (0,36 m²), sobram 20,46 m². Com 10% de perda são 22,51 m², ou 11 caixas de 2,08 m² de azulejo 33 × 45 cm. A argamassa colante soma 20,46 × 6,85 = 140,15 kg (8 sacos de 20 kg) e o rejunte, com peça de 7 mm e junta de 2 mm, (450 + 330) × 7 × 2 ÷ (450 × 330) × 1,58 × 20,46 ≈ 2,38 kg. Os 2,4 m de cantoneira em volta do basculante pedem 2 barras de 2,5 m.",
+ formula="Área = comprimento das paredes × altura do revestimento − portas (0,80 × menor valor entre 2,10 m e a altura) − outros vãos;  caixas = área × (1 + perda) ÷ m² por caixa;  argamassa = área × consumo;  rejunte (kg) = (C + L) × E × J ÷ (C × L) × 1,58 × área",
+ faq=[
+  ("Até que altura colocar azulejo no banheiro?", "É uma escolha de projeto. Na área do box, o revestimento até o teto protege a parede da umidade do vapor e dos respingos. No restante do banheiro, há quem revista até cerca de 1,50 m e pinte acima com tinta própria para áreas úmidas. Informe no campo de altura a medida que você vai usar."),
+  ("Quantas caixas de azulejo a mais devo comprar?", "A perda de 10% a 15% já cobre os recortes. Mesmo assim, guarde as peças que sobrarem: o mesmo lote e a mesma tonalidade raramente são encontrados depois para trocar uma peça quebrada."),
+  ("Qual argamassa usar para azulejo de parede?", "AC-I para paredes internas secas, AC-II para áreas externas e AC-III para porcelanatos e peças grandes, piscinas e fachadas. Na dúvida, use o tipo indicado na caixa do revestimento."),
+  ("Posso colocar azulejo sobre azulejo?", "Em muitos casos, sim, desde que o revestimento antigo esteja firme, sem peças ocas, limpo e sem gordura, e usando argamassa indicada para essa aplicação (geralmente AC-II ou AC-III). Bata nas peças antigas: som oco indica que elas devem ser removidas antes."),
+  ("Para que serve a cantoneira?", "Ela protege e acaba as quinas externas, onde duas faces de azulejo se encontram, como no contorno de janelas e nichos. Existem perfis de PVC e de alumínio; as barras costumam ter 2,5 m, mas há de 2,7 e 3 m. Confira o tamanho na loja."),
+ ],
+ related=["calculadora-de-piso", "calculadora-de-reboco", "calculadora-de-massa-corrida"],
+ aff=("Cantoneiras e perfis para revestimento", "cantoneira-de-aluminio-para-revestimento"),
 ),
 dict(
  slug="calculadora-de-concreto",
