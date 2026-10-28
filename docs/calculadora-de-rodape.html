@@ -1,0 +1,104 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google-site-verification" content="lVqNX4_clxrA_3hEmZyA5nvMgk2JrCB1xlJymBVtD5Y"><title>Calculadora de Rodapé: barras, cola ou rodapé cortado do piso</title><meta name="description" content="Calcule quantas barras de rodapé de MDF, poliestireno ou PVC comprar, descontando portas, armários e bancadas, ou quantas peças e caixas de porcelanato separar para cortar o rodapé do próprio piso, com cola, argamassa e rejunte na lista de compras."><link rel="canonical" href="https://rwp379.github.io/calculadoras/calculadora-de-rodape.html"><meta property="og:title" content="Calculadora de Rodapé: barras, cola ou rodapé cortado do piso"><meta property="og:description" content="Calcule quantas barras de rodapé de MDF, poliestireno ou PVC comprar, descontando portas, armários e bancadas, ou quantas peças e caixas de porcelanato separar para cortar o rodapé do próprio piso, com cola, argamassa e rejunte na lista de compras."><meta property="og:type" content="website"><style>
+:root{--bg:#f7f6f2;--card:#fff;--ink:#1d2321;--muted:#5b6461;--line:#e3e1da;--accent:#b4501a;--accent-ink:#fff;--soft:#fbeee5;--warn:#7a4f00;--warn-bg:#fff4d6}
+@media (prefers-color-scheme:dark){:root{--bg:#141716;--card:#1d2120;--ink:#e9ece9;--muted:#a3aba7;--line:#2e3432;--accent:#f08a4b;--accent-ink:#1b0f07;--soft:#2a211b;--warn:#f1c76b;--warn-bg:#2b2412}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line);background:var(--card)}
+header.top .wrap{display:flex;align-items:center;gap:8px 20px;min-height:56px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+.brand{font-weight:800;text-decoration:none;color:var(--ink);letter-spacing:-.01em}
+.brand span{color:var(--accent)}
+nav.tools{display:flex;gap:4px 14px;flex-wrap:wrap;font-size:14px}
+nav.tools a{color:var(--muted);text-decoration:none}nav.tools a:hover{color:var(--accent)}
+h1{font-size:clamp(26px,4.5vw,36px);line-height:1.15;margin:28px 0 8px;letter-spacing:-.02em}
+h2{font-size:21px;margin:36px 0 10px}
+.lead{color:var(--muted);margin:0 0 20px;max-width:65ch}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+@media (max-width:720px){.calc{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+label{display:block;font-size:14px;color:var(--muted);margin:12px 0 4px}
+form label:first-child{margin-top:0}
+.inp{display:flex;align-items:center;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.inp input,select{width:100%;border:0;background:transparent;color:var(--ink);font:inherit;padding:9px 10px;outline:none;min-width:0}
+select{border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.inp:focus-within,select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.inp em{font-style:normal;color:var(--muted);padding:0 10px;font-size:14px;white-space:nowrap}
+.res h3{margin:0 0 8px;font-size:13px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+table{width:100%;border-collapse:collapse;font-size:15px}
+td{padding:7px 0;border-bottom:1px solid var(--line);vertical-align:top}td:last-child{text-align:right;padding-left:12px}
+.buy{background:var(--soft);border-radius:10px;padding:12px 14px;margin-top:14px}
+.buy ul{margin:6px 0 0;padding-left:20px}
+.warn{background:var(--warn-bg);color:var(--warn);border-radius:8px;padding:10px 12px;margin-top:12px;font-size:14px}
+.warn:empty{display:none}
+button.copy{margin-top:10px;background:var(--accent);color:var(--accent-ink);border:0;border-radius:8px;padding:8px 14px;font:inherit;font-weight:600;cursor:pointer}
+ol.steps li{margin:6px 0}
+.formula{font-family:ui-monospace,Consolas,monospace;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:14px;overflow-x:auto}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:8px 0}
+summary{cursor:pointer;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:16px}
+a.card{display:block;text-decoration:none;color:var(--ink)}
+a.card:hover{border-color:var(--accent)}
+a.card b{display:block;margin-bottom:4px}a.card small{color:var(--muted)}
+.note{font-size:14px;color:var(--muted)}
+footer{margin-top:48px;padding-top:16px;padding-bottom:24px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+</style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Quantas barras de rodapé preciso para um quarto?", "acceptedAnswer": {"@type": "Answer", "text": "Para um quarto de 3 × 3 m, com uma porta, são 11,2 m de rodapé, ou cerca de 12,3 m com 10% de perda: 6 barras de 2,40 m. Use a calculadora com as medidas reais, porque armários embutidos e portas de varanda mudam bastante a conta."}}, {"@type": "Question", "name": "Vale a pena comprar rodapé em kit?", "acceptedAnswer": {"@type": "Answer", "text": "Os kits de 10 barras de 2,40 m (24 m) costumam sair mais baratos por metro, mas só compensam se você for usar a maior parte. Compare o número de barras calculado com o do kit e lembre que uma barra extra, do mesmo lote, ajuda em reparos futuros."}}, {"@type": "Question", "name": "Rodapé de MDF, poliestireno ou cortado do piso?", "acceptedAnswer": {"@type": "Answer", "text": "O poliestireno e o PVC não absorvem água e podem ser lavados. O MDF é mais barato e fácil de pintar, mas incha com umidade e deve ficar longe de áreas molhadas. O rodapé cortado do piso combina com o revestimento e resiste a pano molhado, mas exige caixas a mais e um corte bem feito."}}, {"@type": "Question", "name": "Quantas faixas de rodapé saem de uma peça de porcelanato?", "acceptedAnswer": {"@type": "Answer", "text": "Depende da largura da peça e da altura do rodapé. O mais comum é aproveitar 2 faixas por peça, uma de cada borda, para que a borda de fábrica fique sempre para cima. Faixas do meio da peça ficam com as duas bordas cortadas, que precisam ser lixadas ou polidas."}}, {"@type": "Question", "name": "Como fazer os cantos do rodapé?", "acceptedAnswer": {"@type": "Answer", "text": "Nos cantos internos e externos, as barras são cortadas a 45° (meia-esquadria) para se encontrarem sem fresta. Alguns rodapés de poliestireno têm peças prontas de canto e emenda. Nas paredes mais compridas que a barra, faça a emenda com corte reto ou a 45° e reforce com cola."}}]}</script></head><body><header class="top"><div class="wrap"><a class="brand" href="/calculadoras/">Calculadoras <span>de Obra</span></a><nav class="tools" aria-label="Calculadoras"><a href="/calculadoras/calculadora-de-tinta.html">Tinta</a><a href="/calculadoras/calculadora-de-piso.html">Piso e rejunte</a><a href="/calculadoras/calculadora-de-azulejo.html">Azulejo de parede</a><a href="/calculadoras/calculadora-de-concreto.html">Concreto</a><a href="/calculadoras/calculadora-de-alvenaria.html">Tijolos e blocos</a><a href="/calculadoras/calculadora-de-reboco.html">Reboco</a><a href="/calculadoras/calculadora-de-contrapiso.html">Contrapiso</a><a href="/calculadoras/calculadora-de-massa-corrida.html">Massa corrida</a><a href="/calculadoras/calculadora-de-rodape.html">Rodapé</a></nav></div></header><main class="wrap"><h1>Calculadora de rodapé</h1><p class="lead">Calcule quantas barras de rodapé de MDF, poliestireno ou PVC comprar, descontando portas, armários e bancadas, ou quantas peças e caixas de porcelanato separar para cortar o rodapé do próprio piso, com cola, argamassa e rejunte na lista de compras.</p><section class="calc"><form class="card" onsubmit="return false"><label for="mat">Tipo de rodapé</label><select id="mat" data-k="mat"><option value="mdf">Barras de MDF ou madeira (coladas com PVA)</option><option value="ps">Barras de poliestireno ou PVC</option><option value="piso">Cortado do piso (porcelanato ou cerâmica)</option></select><label for="perim">Perímetro do cômodo (soma das paredes)</label><div class="inp"><input id="perim" data-k="perim" type="number" inputmode="decimal" min="0" step="0.1" value="15"><em>m</em></div><label for="portas">Portas</label><div class="inp"><input id="portas" data-k="portas" type="number" inputmode="decimal" min="0" step="1" value="1"><em>un</em></div><label for="lp">Largura de cada porta, com o batente</label><div class="inp"><input id="lp" data-k="lp" type="number" inputmode="decimal" min="0" step="0.01" value="0.8"><em>m</em></div><label for="outros">Trechos sem rodapé (armário, bancada, box)</label><div class="inp"><input id="outros" data-k="outros" type="number" inputmode="decimal" min="0" step="0.1" value="0"><em>m</em></div><label for="perda">Perda (cortes a 45° e emendas)</label><div class="inp"><input id="perda" data-k="perda" type="number" inputmode="decimal" min="0" step="1" value="10"><em>%</em></div><label for="barra">Comprimento da barra (rodapé em barras)</label><div class="inp"><input id="barra" data-k="barra" type="number" inputmode="decimal" min="0" step="0.01" value="2.4"><em>m</em></div><label for="alt">Altura do rodapé (cortado do piso)</label><div class="inp"><input id="alt" data-k="alt" type="number" inputmode="decimal" min="0" step="0.5" value="7"><em>cm</em></div><label for="pc">Comprimento da peça de piso</label><div class="inp"><input id="pc" data-k="pc" type="number" inputmode="decimal" min="0" step="0.5" value="60"><em>cm</em></div><label for="faixas">Faixas aproveitadas por peça</label><div class="inp"><input id="faixas" data-k="faixas" type="number" inputmode="decimal" min="0" step="1" value="2"><em>un</em></div><label for="pcx">Peças por caixa (veja a embalagem)</label><div class="inp"><input id="pcx" data-k="pcx" type="number" inputmode="decimal" min="0" step="1" value="4"><em>un</em></div></form><div class="card res" aria-live="polite"><h3>Resultado</h3><table><tbody id="rows"></tbody></table><div class="buy"><b>Lista de compras</b><ul id="buy"></ul></div><button class="copy" id="cp" type="button" onclick="copyList()">Copiar lista de compras</button><div class="warn" id="warn"></div></div></section><h2>Como calcular, passo a passo</h2><ol class="steps"><li>Some o comprimento de todas as paredes do cômodo (perímetro). Num cômodo retangular, perímetro = 2 × (comprimento + largura).</li><li>Desconte os vãos onde o rodapé para: a largura de cada porta, com o batente, e os trechos cobertos por armário planejado, bancada, box ou lareira.</li><li>Acrescente a perda: cerca de 10% cobre os cortes a 45° nos cantos e as emendas nas paredes mais compridas que a barra. Em cômodos com muitos recortes, use 15%.</li><li>Rodapé em barras: divida o total com perda pelo comprimento da barra (o mais comum é 2,40 m) e arredonde para cima. Para MDF ou madeira colados, conte cerca de 0,124 kg de cola branca PVA por metro (SINAPI 101738).</li><li>Rodapé cortado do piso: cada peça rende algumas faixas na altura do rodapé. O usual é aproveitar 2 faixas por peça, uma de cada lado, com a borda de fábrica virada para cima. Divida o total com perda pelo comprimento dessas faixas para saber as peças e, depois, pelas peças da caixa.</li><li>Argamassa e rejunte do rodapé cerâmico: cerca de 0,64 kg de argamassa colante e 0,092 kg de rejunte por metro, num rodapé de 7 cm (SINAPI 88648). Em rodapés mais altos, a calculadora aumenta esses valores na mesma proporção.</li></ol><h2>Exemplo resolvido</h2><p>Sala de 4,00 × 3,50 m: perímetro de 15 m. Descontando uma porta de 0,80 m, ficam 14,2 m de rodapé, ou 15,62 m com 10% de perda. Com barras de 2,40 m, 15,62 ÷ 2,40 = 6,51, ou seja, 7 barras (16,8 m). Se forem de MDF coladas, a cola PVA soma 14,2 × 0,124411 ≈ 1,77 kg. Se o rodapé for cortado de um porcelanato de 60 × 60 cm, em faixas de 7 cm, cada peça rende 2 faixas, ou 1,2 m: são 14 peças, ou 4 caixas de 4 peças além das do piso, com 9,08 kg de argamassa colante (1 saco de 20 kg) e 1,31 kg de rejunte.</p><h2>Fórmula usada</h2><div class="formula">Rodapé (m) = perímetro − portas × largura − trechos sem rodapé;  barras = rodapé × (1 + perda) ÷ comprimento da barra;  cola PVA (kg) = rodapé × 0,124;  cortado do piso: peças = rodapé × (1 + perda) ÷ (faixas × comprimento da peça), argamassa (kg) = rodapé × 0,6392 × altura ÷ 7, rejunte (kg) = rodapé × 0,092 × altura ÷ 7</div><h2>Perguntas frequentes</h2><details><summary>Quantas barras de rodapé preciso para um quarto?</summary><p>Para um quarto de 3 × 3 m, com uma porta, são 11,2 m de rodapé, ou cerca de 12,3 m com 10% de perda: 6 barras de 2,40 m. Use a calculadora com as medidas reais, porque armários embutidos e portas de varanda mudam bastante a conta.</p></details><details><summary>Vale a pena comprar rodapé em kit?</summary><p>Os kits de 10 barras de 2,40 m (24 m) costumam sair mais baratos por metro, mas só compensam se você for usar a maior parte. Compare o número de barras calculado com o do kit e lembre que uma barra extra, do mesmo lote, ajuda em reparos futuros.</p></details><details><summary>Rodapé de MDF, poliestireno ou cortado do piso?</summary><p>O poliestireno e o PVC não absorvem água e podem ser lavados. O MDF é mais barato e fácil de pintar, mas incha com umidade e deve ficar longe de áreas molhadas. O rodapé cortado do piso combina com o revestimento e resiste a pano molhado, mas exige caixas a mais e um corte bem feito.</p></details><details><summary>Quantas faixas de rodapé saem de uma peça de porcelanato?</summary><p>Depende da largura da peça e da altura do rodapé. O mais comum é aproveitar 2 faixas por peça, uma de cada borda, para que a borda de fábrica fique sempre para cima. Faixas do meio da peça ficam com as duas bordas cortadas, que precisam ser lixadas ou polidas.</p></details><details><summary>Como fazer os cantos do rodapé?</summary><p>Nos cantos internos e externos, as barras são cortadas a 45° (meia-esquadria) para se encontrarem sem fresta. Alguns rodapés de poliestireno têm peças prontas de canto e emenda. Nas paredes mais compridas que a barra, faça a emenda com corte reto ou a 45° e reforce com cola.</p></details><p class="note">Ferramentas úteis: <a rel="sponsored nofollow noopener" target="_blank" href="https://lista.mercadolivre.com.br/rodape-poliestireno">Rodapés de poliestireno e MDF no Mercado Livre</a>.</p><h2>Calculadoras relacionadas</h2><div class="grid"><a class="card" href="/calculadoras/calculadora-de-tinta.html"><b>Tinta</b><small>Calcule a área a pintar descontando portas e janelas, os litros de tinta por demão e a combinação mais econômica de latas de 18 L, 3,6 L e 900 ml.</small></a><a class="card" href="/calculadoras/calculadora-de-piso.html"><b>Piso e rejunte</b><small>Calcule quantas caixas de piso comprar com a perda certa para o tipo de assentamento, além dos sacos de argamassa colante e quilos de rejunte.</small></a><a class="card" href="/calculadoras/calculadora-de-azulejo.html"><b>Azulejo de parede</b><small>Calcule quantas caixas de azulejo comprar para banheiro, cozinha ou área de serviço, até o teto ou meia parede, descontando portas e janelas, com argamassa colante, rejunte e cantoneiras na lista de compras.</small></a></div><script>
+function f(x){return Number(x).toLocaleString('pt-BR',{maximumFractionDigits:2})}
+function run(){
+ var v={};document.querySelectorAll('[data-k]').forEach(function(el){v[el.dataset.k]=el.tagName==='SELECT'?el.value:(parseFloat(el.value)||0);});
+ var r=calc(v);
+ document.getElementById('rows').innerHTML=r.rows.map(function(x){return '<tr><td>'+x[0]+'</td><td>'+x[1]+'</td></tr>'}).join('');
+ document.getElementById('buy').innerHTML=r.buy.map(function(x){return '<li>'+x+'</li>'}).join('');
+ document.getElementById('warn').textContent=r.warn||'';
+}
+function copyList(){var t=Array.from(document.querySelectorAll('#buy li')).map(function(li){return '- '+li.textContent}).join('\n');
+ if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){var b=document.getElementById('cp');b.textContent='Copiado!';setTimeout(function(){b.textContent='Copiar lista de compras'},1500)})}}
+document.addEventListener('input',run);document.addEventListener('change',run);
+function calc(v){var mat=v.mat;var perim=v.perim;var portas=v.portas;var lp=v.lp;var outros=v.outros;var perda=v.perda;var barra=v.barra;var alt=v.alt;var pc=v.pc;var faixas=v.faixas;var pcx=v.pcx;
+var vaos = portas*lp + outros;
+var L = Math.max(perim - vaos, 0);
+var comp = L*(1+perda/100);
+var rows = [
+ ['Perímetro', f(perim)+' m'],
+ ['Desconto de portas e trechos sem rodapé', '− '+f(vaos)+' m'],
+ ['Rodapé a instalar', f(L)+' m'],
+ ['Com perda ('+f(perda)+'%)', f(comp)+' m']];
+var buy = [], w = '';
+if(mat=='piso'){
+ var porPeca = faixas*pc/100;
+ var pecas = porPeca>0 ? Math.ceil(comp/porPeca-1e-9) : 0;
+ var caixas = pcx>0 ? Math.ceil(pecas/pcx-1e-9) : 0;
+ var arg = L*0.6392*alt/7, rej = L*0.092*alt/7;
+ var sacos = Math.max(Math.ceil(arg/20-1e-9), 1);
+ rows.push(['Rendimento por peça', faixas+' faixas de '+f(alt)+' cm = '+f(porPeca)+' m']);
+ rows.push(['Peças de piso', '<b>'+pecas+' peças</b>']);
+ rows.push(['Caixas além das do piso', '<b>'+caixas+(caixas==1 ? ' caixa' : ' caixas')+'</b> ('+(caixas*pcx)+' peças)']);
+ rows.push(['Argamassa colante', '<b>'+sacos+(sacos==1 ? ' saco' : ' sacos')+' de 20 kg</b> ('+f(arg)+' kg)']);
+ rows.push(['Rejunte', f(rej)+' kg']);
+ buy.push(caixas+' caixa(s) de piso a mais, do mesmo lote e tonalidade do piso, para cortar o rodapé',
+  sacos+' saco(s) de argamassa colante de 20 kg (AC-I para cerâmica em área interna; AC-III para porcelanato)',
+  Math.max(Math.ceil(rej),1)+' kg de rejunte da mesma cor do piso',
+  'Cortadora de piso ou serra mármore com disco para porcelanato, e lixa d’água para acertar as bordas cortadas');
+ if(porPeca<=0) w = 'Informe o comprimento da peça e as faixas aproveitadas por peça.';
+ else if(pcx<=0) w = 'Informe quantas peças vêm na caixa.';
+ else if(faixas>2) w = 'Com mais de 2 faixas por peça, algumas faixas ficam sem a borda de fábrica: a borda de cima terá de ser lixada ou polida.';
+} else {
+ var barras = barra>0 ? Math.ceil(comp/barra-1e-9) : 0;
+ rows.push(['Barras de '+f(barra)+' m', '<b>'+barras+' barras</b> ('+f(barras*barra)+' m)']);
+ buy.push(barras+' barras de rodapé de '+f(barra)+' m '+(mat=='mdf' ? '(MDF ou madeira)' : '(poliestireno ou PVC)')+', todas do mesmo lote');
+ if(mat=='mdf'){
+  var cola = L*0.124411;
+  rows.push(['Cola branca PVA', f(cola)+' kg']);
+  buy.push(Math.max(Math.ceil(cola),1)+' kg de cola branca PVA (ou o adesivo indicado pelo fabricante), mais pregos sem cabeça se a parede for irregular');
+ } else {
+  buy.push('Adesivo indicado pelo fabricante do rodapé (PU, silicone neutro ou cola própria): veja na embalagem quantos metros rende cada tubo');
+ }
+ buy.push('Serra ou caixa de meia-esquadria para os cortes a 45° nos cantos');
+ if(barra<=0) w = 'Informe o comprimento da barra.';
+ else if(barra<1 || barra>3.2) w = 'Confira o comprimento da barra: o mais comum é 2,40 m (há também barras de 2,00, 2,70 e 3,00 m).';
+}
+if(L<=0) w = 'O comprimento ficou zerado: confira o perímetro e os descontos.';
+else if(vaos > perim*0.5) w = 'Os descontos passam de metade do perímetro. Confira a largura das portas e os trechos sem rodapé.';
+else if(!w && perda<5) w = 'Com menos de 5% de perda, sobra pouca margem para os cortes a 45° dos cantos e para as emendas.';
+return {rows:rows, buy: L>0 ? buy : [], warn: w};
+}run();</script></main><footer class="wrap">Os resultados são estimativas para compra de material e não substituem projeto nem orientação de profissional habilitado. Atualizado em 28/10/2026. <a href="/calculadoras/sobre.html">Sobre</a> · <a href="/calculadoras/privacidade.html">Privacidade</a></footer></body></html>

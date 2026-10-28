@@ -128,7 +128,7 @@ return {rows:[
   ("Qual argamassa usar: AC-I, AC-II ou AC-III?", "AC-I para áreas internas, AC-II para áreas externas e AC-III para porcelanatos grandes, piscinas e fachadas. A embalagem do piso costuma indicar o tipo."),
   ("Por que a junta influencia tanto o rejunte?", "O consumo é proporcional à largura e à profundidade da junta. Dobrar a junta dobra o rejunte."),
  ],
- related=["calculadora-de-azulejo", "calculadora-de-contrapiso", "calculadora-de-tinta"],
+ related=["calculadora-de-azulejo", "calculadora-de-rodape", "calculadora-de-contrapiso", "calculadora-de-tinta"],
  aff=("Niveladores e espaçadores para piso", "nivelador-de-piso-espacador"),
 ),
 dict(
@@ -487,6 +487,93 @@ function seladores(L){
  ],
  related=["calculadora-de-tinta", "calculadora-de-reboco"],
  aff=("Desempenadeiras e espátulas para massa corrida", "desempenadeira-de-aco-massa-corrida"),
+),
+dict(
+ slug="calculadora-de-rodape",
+ short="Rodapé",
+ title="Calculadora de Rodapé: barras, cola ou rodapé cortado do piso",
+ h1="Calculadora de rodapé",
+ desc="Calcule quantas barras de rodapé de MDF, poliestireno ou PVC comprar, descontando portas, armários e bancadas, ou quantas peças e caixas de porcelanato separar para cortar o rodapé do próprio piso, com cola, argamassa e rejunte na lista de compras.",
+ fields=[
+  ("mat", "Tipo de rodapé", [("mdf", "Barras de MDF ou madeira (coladas com PVA)"), ("ps", "Barras de poliestireno ou PVC"), ("piso", "Cortado do piso (porcelanato ou cerâmica)")], None, None),
+  ("perim", "Perímetro do cômodo (soma das paredes)", 15, 0.1, "m"),
+  ("portas", "Portas", 1, 1, "un"),
+  ("lp", "Largura de cada porta, com o batente", 0.8, 0.01, "m"),
+  ("outros", "Trechos sem rodapé (armário, bancada, box)", 0, 0.1, "m"),
+  ("perda", "Perda (cortes a 45° e emendas)", 10, 1, "%"),
+  ("barra", "Comprimento da barra (rodapé em barras)", 2.4, 0.01, "m"),
+  ("alt", "Altura do rodapé (cortado do piso)", 7, 0.5, "cm"),
+  ("pc", "Comprimento da peça de piso", 60, 0.5, "cm"),
+  ("faixas", "Faixas aproveitadas por peça", 2, 1, "un"),
+  ("pcx", "Peças por caixa (veja a embalagem)", 4, 1, "un"),
+ ],
+ js="""
+var vaos = portas*lp + outros;
+var L = Math.max(perim - vaos, 0);
+var comp = L*(1+perda/100);
+var rows = [
+ ['Perímetro', f(perim)+' m'],
+ ['Desconto de portas e trechos sem rodapé', '− '+f(vaos)+' m'],
+ ['Rodapé a instalar', f(L)+' m'],
+ ['Com perda ('+f(perda)+'%)', f(comp)+' m']];
+var buy = [], w = '';
+if(mat=='piso'){
+ var porPeca = faixas*pc/100;
+ var pecas = porPeca>0 ? Math.ceil(comp/porPeca-1e-9) : 0;
+ var caixas = pcx>0 ? Math.ceil(pecas/pcx-1e-9) : 0;
+ var arg = L*0.6392*alt/7, rej = L*0.092*alt/7;
+ var sacos = Math.max(Math.ceil(arg/20-1e-9), 1);
+ rows.push(['Rendimento por peça', faixas+' faixas de '+f(alt)+' cm = '+f(porPeca)+' m']);
+ rows.push(['Peças de piso', '<b>'+pecas+' peças</b>']);
+ rows.push(['Caixas além das do piso', '<b>'+caixas+(caixas==1 ? ' caixa' : ' caixas')+'</b> ('+(caixas*pcx)+' peças)']);
+ rows.push(['Argamassa colante', '<b>'+sacos+(sacos==1 ? ' saco' : ' sacos')+' de 20 kg</b> ('+f(arg)+' kg)']);
+ rows.push(['Rejunte', f(rej)+' kg']);
+ buy.push(caixas+' caixa(s) de piso a mais, do mesmo lote e tonalidade do piso, para cortar o rodapé',
+  sacos+' saco(s) de argamassa colante de 20 kg (AC-I para cerâmica em área interna; AC-III para porcelanato)',
+  Math.max(Math.ceil(rej),1)+' kg de rejunte da mesma cor do piso',
+  'Cortadora de piso ou serra mármore com disco para porcelanato, e lixa d’água para acertar as bordas cortadas');
+ if(porPeca<=0) w = 'Informe o comprimento da peça e as faixas aproveitadas por peça.';
+ else if(pcx<=0) w = 'Informe quantas peças vêm na caixa.';
+ else if(faixas>2) w = 'Com mais de 2 faixas por peça, algumas faixas ficam sem a borda de fábrica: a borda de cima terá de ser lixada ou polida.';
+} else {
+ var barras = barra>0 ? Math.ceil(comp/barra-1e-9) : 0;
+ rows.push(['Barras de '+f(barra)+' m', '<b>'+barras+' barras</b> ('+f(barras*barra)+' m)']);
+ buy.push(barras+' barras de rodapé de '+f(barra)+' m '+(mat=='mdf' ? '(MDF ou madeira)' : '(poliestireno ou PVC)')+', todas do mesmo lote');
+ if(mat=='mdf'){
+  var cola = L*0.124411;
+  rows.push(['Cola branca PVA', f(cola)+' kg']);
+  buy.push(Math.max(Math.ceil(cola),1)+' kg de cola branca PVA (ou o adesivo indicado pelo fabricante), mais pregos sem cabeça se a parede for irregular');
+ } else {
+  buy.push('Adesivo indicado pelo fabricante do rodapé (PU, silicone neutro ou cola própria): veja na embalagem quantos metros rende cada tubo');
+ }
+ buy.push('Serra ou caixa de meia-esquadria para os cortes a 45° nos cantos');
+ if(barra<=0) w = 'Informe o comprimento da barra.';
+ else if(barra<1 || barra>3.2) w = 'Confira o comprimento da barra: o mais comum é 2,40 m (há também barras de 2,00, 2,70 e 3,00 m).';
+}
+if(L<=0) w = 'O comprimento ficou zerado: confira o perímetro e os descontos.';
+else if(vaos > perim*0.5) w = 'Os descontos passam de metade do perímetro. Confira a largura das portas e os trechos sem rodapé.';
+else if(!w && perda<5) w = 'Com menos de 5% de perda, sobra pouca margem para os cortes a 45° dos cantos e para as emendas.';
+return {rows:rows, buy: L>0 ? buy : [], warn: w};
+""",
+ how=[
+  "Some o comprimento de todas as paredes do cômodo (perímetro). Num cômodo retangular, perímetro = 2 × (comprimento + largura).",
+  "Desconte os vãos onde o rodapé para: a largura de cada porta, com o batente, e os trechos cobertos por armário planejado, bancada, box ou lareira.",
+  "Acrescente a perda: cerca de 10% cobre os cortes a 45° nos cantos e as emendas nas paredes mais compridas que a barra. Em cômodos com muitos recortes, use 15%.",
+  "Rodapé em barras: divida o total com perda pelo comprimento da barra (o mais comum é 2,40 m) e arredonde para cima. Para MDF ou madeira colados, conte cerca de 0,124 kg de cola branca PVA por metro (SINAPI 101738).",
+  "Rodapé cortado do piso: cada peça rende algumas faixas na altura do rodapé. O usual é aproveitar 2 faixas por peça, uma de cada lado, com a borda de fábrica virada para cima. Divida o total com perda pelo comprimento dessas faixas para saber as peças e, depois, pelas peças da caixa.",
+  "Argamassa e rejunte do rodapé cerâmico: cerca de 0,64 kg de argamassa colante e 0,092 kg de rejunte por metro, num rodapé de 7 cm (SINAPI 88648). Em rodapés mais altos, a calculadora aumenta esses valores na mesma proporção.",
+ ],
+ example="Sala de 4,00 × 3,50 m: perímetro de 15 m. Descontando uma porta de 0,80 m, ficam 14,2 m de rodapé, ou 15,62 m com 10% de perda. Com barras de 2,40 m, 15,62 ÷ 2,40 = 6,51, ou seja, 7 barras (16,8 m). Se forem de MDF coladas, a cola PVA soma 14,2 × 0,124411 ≈ 1,77 kg. Se o rodapé for cortado de um porcelanato de 60 × 60 cm, em faixas de 7 cm, cada peça rende 2 faixas, ou 1,2 m: são 14 peças, ou 4 caixas de 4 peças além das do piso, com 9,08 kg de argamassa colante (1 saco de 20 kg) e 1,31 kg de rejunte.",
+ formula="Rodapé (m) = perímetro − portas × largura − trechos sem rodapé;  barras = rodapé × (1 + perda) ÷ comprimento da barra;  cola PVA (kg) = rodapé × 0,124;  cortado do piso: peças = rodapé × (1 + perda) ÷ (faixas × comprimento da peça), argamassa (kg) = rodapé × 0,6392 × altura ÷ 7, rejunte (kg) = rodapé × 0,092 × altura ÷ 7",
+ faq=[
+  ("Quantas barras de rodapé preciso para um quarto?", "Para um quarto de 3 × 3 m, com uma porta, são 11,2 m de rodapé, ou cerca de 12,3 m com 10% de perda: 6 barras de 2,40 m. Use a calculadora com as medidas reais, porque armários embutidos e portas de varanda mudam bastante a conta."),
+  ("Vale a pena comprar rodapé em kit?", "Os kits de 10 barras de 2,40 m (24 m) costumam sair mais baratos por metro, mas só compensam se você for usar a maior parte. Compare o número de barras calculado com o do kit e lembre que uma barra extra, do mesmo lote, ajuda em reparos futuros."),
+  ("Rodapé de MDF, poliestireno ou cortado do piso?", "O poliestireno e o PVC não absorvem água e podem ser lavados. O MDF é mais barato e fácil de pintar, mas incha com umidade e deve ficar longe de áreas molhadas. O rodapé cortado do piso combina com o revestimento e resiste a pano molhado, mas exige caixas a mais e um corte bem feito."),
+  ("Quantas faixas de rodapé saem de uma peça de porcelanato?", "Depende da largura da peça e da altura do rodapé. O mais comum é aproveitar 2 faixas por peça, uma de cada borda, para que a borda de fábrica fique sempre para cima. Faixas do meio da peça ficam com as duas bordas cortadas, que precisam ser lixadas ou polidas."),
+  ("Como fazer os cantos do rodapé?", "Nos cantos internos e externos, as barras são cortadas a 45° (meia-esquadria) para se encontrarem sem fresta. Alguns rodapés de poliestireno têm peças prontas de canto e emenda. Nas paredes mais compridas que a barra, faça a emenda com corte reto ou a 45° e reforce com cola."),
+ ],
+ related=["calculadora-de-piso", "calculadora-de-azulejo", "calculadora-de-tinta"],
+ aff=("Rodapés de poliestireno e MDF", "rodape-poliestireno"),
 ),
 ]
 
