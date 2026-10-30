@@ -373,32 +373,47 @@ dict(
  desc="Calcule o volume de argamassa de contrapiso e quantos sacos de cimento e metros cúbicos de areia comprar, conforme a espessura e o traço.",
  fields=[
   ("area", "Área do piso", 20, 0.1, "m²"),
-  ("esp", "Espessura média", 4, 0.5, "cm"),
+  ("esp", "Espessura mínima (ou única, se for uniforme)", 4, 0.5, "cm"),
+  ("espmax", "Espessura máxima, se houver desnível ou caimento (0 = uniforme)", 0, 0.5, "cm"),
   ("traco", "Traço em volume (cimento : areia)", [("1,4", "1 : 4 — uso residencial comum"), ("1,3", "1 : 3 — mais resistente"), ("1,5", "1 : 5 — áreas de pouco tráfego")], None, None),
+  ("perda", "Perda", 5, 1, "%"),
  ],
  js="""
 var t = String(traco).split(',').map(Number);
-var vol = area*esp/100*1.05;
+var em = espmax>esp ? (esp+espmax)/2 : esp;
+var vol = area*em/100*(1+perda/100);
 var seco = vol*1.30;
 var vc = seco*t[0]/(t[0]+t[1]), va = seco*t[1]/(t[0]+t[1]);
-var kg = vc*1400, sacos = Math.ceil(kg/50);
-return {rows:[
- ['Volume de contrapiso (com 5% de perda)', '<b>'+f(vol)+' m³</b>'],
+var kg = vc*1400, sacos = Math.ceil(kg/50-1e-9);
+var rows = [];
+if(espmax>esp) rows.push(['Espessura média (entre '+f(esp)+' e '+f(espmax)+' cm)', f(em)+' cm']);
+rows.push(['Volume de contrapiso (com '+f(perda)+'% de perda)', '<b>'+f(vol)+' m³</b>'],
  ['Cimento', '<b>'+sacos+' sacos de 50 kg</b> ('+f(kg)+' kg)'],
  ['Areia média', f(va)+' m³'],
- ['Consumo de cimento por m²', area>0 ? f(kg/area)+' kg' : '—']],
- buy:[sacos+' sacos de cimento de 50 kg', f(va*1.1)+' m³ de areia média lavada (inclui inchamento)', 'Adesivo para chapisco ou ponte de aderência, se indicado pelo fabricante do piso'],
- warn: esp<3 ? 'Contrapisos com menos de 3 cm tendem a trincar e descolar; para espessuras tão pequenas, avalie argamassa autonivelante.' : (esp>6 ? 'Acima de 6 cm, avalie preencher parte da altura com concreto magro para economizar cimento.' : '')};
+ ['Consumo de cimento por m²', area>0 ? f(kg/area)+' kg' : '—'],
+ ['Rendimento de 1 saco de cimento', kg>0 ? f(area/(kg/50))+' m²' : '—']);
+var buy = [sacos+' sacos de cimento de 50 kg', f(va*1.1)+' m³ de areia média lavada (inclui inchamento)',
+ 'Régua de alumínio e taliscas para marcar o nível'+(espmax>esp ? ' e o caimento' : ''),
+ 'Adesivo para chapisco ou ponte de aderência, se indicado pelo fabricante do piso'];
+var w = '';
+if(area<=0) w = 'A área ficou zerada: confira a medida do piso.';
+else if(espmax>0 && espmax<esp) w = 'A espessura máxima ficou menor que a mínima, por isso foi ignorada. Confira os dois campos.';
+else if(em<3) w = 'Contrapisos com menos de 3 cm tendem a trincar e descolar; para espessuras tão pequenas, avalie argamassa autonivelante.';
+else if(em>6) w = 'Acima de 6 cm, avalie preencher parte da altura com concreto magro para economizar cimento e reduzir o peso sobre a laje.';
+return {rows:rows, buy: area>0 ? buy : [], warn: w};
 """,
  how=[
-  "Multiplique a área pela espessura média em metros e acrescente 5% de perda.",
+  "Meça a espessura que o contrapiso vai ter. Se o piso tiver desnível ou caimento para o ralo, meça no ponto mais fino e no mais grosso: a calculadora usa a média dos dois, que vale para uma rampa uniforme.",
+  "Multiplique a área pela espessura média em metros e acrescente a perda (5% é usual; aumente se a argamassa for transportada por longas distâncias).",
   "Multiplique por 1,30, fator usual para argamassa semisseca (o volume de materiais secos é maior que o volume final).",
   "Divida na proporção do traço; o cimento vira quilos pela massa unitária de cerca de 1.400 kg/m³.",
  ],
- example="Piso de 20 m² com 4 cm de contrapiso: 0,84 m³ com perda. Volume seco: 1,09 m³. No traço 1 : 4, cimento = 1,09 ÷ 5 = 0,22 m³ ≈ 306 kg, ou 7 sacos de 50 kg; areia 0,87 m³.",
- formula="Material = área × espessura × 1,05 × 1,30 × (parte do material ÷ soma do traço)",
+ example="Piso de 20 m² com 4 cm de contrapiso: 0,84 m³ com perda. Volume seco: 1,09 m³. No traço 1 : 4, cimento = 1,09 ÷ 5 = 0,22 m³ ≈ 306 kg, ou 7 sacos de 50 kg; areia 0,87 m³. São cerca de 15,3 kg de cimento por m², e cada saco cobre perto de 3,27 m².",
+ formula="Espessura média = (mínima + máxima) ÷ 2;  material = área × espessura média × (1 + perda) × 1,30 × (parte do material ÷ soma do traço)",
  faq=[
   ("Qual a espessura ideal de contrapiso?", "Entre 3 e 5 cm é o mais comum em residências. Menos que isso trinca com facilidade; muito mais encarece e pesa sobre a laje."),
+  ("Como calcular contrapiso com desnível ou caimento?", "Meça a espessura no ponto mais fino e no mais grosso e preencha os dois campos. Num banheiro que vai de 3 cm na porta a 5 cm no canto oposto ao ralo, a espessura média é 4 cm. Se o desnível for irregular, divida o piso em partes e calcule cada uma."),
+  ("Quantos m² rende um saco de cimento no contrapiso?", "No traço 1 : 4 com 5% de perda, cerca de 4,4 m² com 3 cm, 3,3 m² com 4 cm e 2,6 m² com 5 cm de espessura."),
   ("Quanto tempo esperar para assentar o piso?", "Em geral de 7 a 14 dias de cura para argamassa convencional. Siga a orientação do fabricante da argamassa colante e do piso."),
   ("Contrapiso precisa de cal?", "Não é obrigatório. O contrapiso comum usa cimento e areia em consistência semisseca, conhecida como farofa."),
  ],
